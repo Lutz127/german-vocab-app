@@ -338,7 +338,7 @@ def settings():
             INSERT INTO user_settings (
                 user_id, theme, sound_enabled, custom_color,
                 speedrun_enabled, strict_articles
-            ) VALUES (%s, 'german', 1, NULL, 0, 0)
+            ) VALUES (%s, 'german', TRUE, NULL, FALSE, FALSE)
         """, (session["user_id"],))
         db.commit()
 

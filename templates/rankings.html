@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}Global Rankings{% endblock %}
+
+{% block content %}
+
+<div class="max-w-3xl mx-auto mt-10 text-white">
+
+    <h1 class="text-5xl font-extrabold text-center mb-6">Global Rankings</h1>
+
+    <div class="space-y-3">
+
+        {% for user in users %}
+        <div class="bg-black/40 p-4 rounded-xl flex items-center justify-between">
+
+            <div class="flex items-center gap-4">
+                <span class="text-3xl font-bold text-yellow-300">#{{ user.rank }}</span>
+
+                <a href="/u/{{ user.username }}" class="text-2xl font-semibold hover:text-yellow-300">
+                    {{ user.username }}
+                </a>
+            </div>
+
+            <div class="text-right">
+                <p class="text-lg">
+                    <b>Level {{ user.level }}</b>
+                </p>
+                <p class="text-gray-300 text-sm">
+                    XP: {{ user.xp }} • 🔥 {{ user.streak }}
+                </p>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

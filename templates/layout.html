@@ -26,6 +26,25 @@
         }
     </style>
 
+    <style>
+    /* Hide scrollbar for Chrome, Edge, Safari */
+    ::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+    /* Hide scrollbar for Firefox */
+    html {
+        scrollbar-width: none;
+    }
+
+    /* Hide scrollbar for IE, old Edge */
+    html {
+        -ms-overflow-style: none;
+    }
+    </style>
+
+
     <!-- Montserrat FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
 
@@ -66,34 +85,84 @@
 
     <div class="min-h-screen flex flex-col">
         <!-- Navbar -->
-        <header class="bg-zinc-950/20 text-white shadow">
+        <header class="bg-zinc-950/20 text-white shadow" x-data="{ open:false }">
             <nav class="max-w-8xl mx-auto px-4 py-3 flex items-center justify-between">
+
+                <!-- LOGO -->
                 <a href="{{ url_for('index') }}" class="flex items-center gap-2 font-semibold text-lg">
-                    <img src="{{ url_for('static', filename='img/logo.png') }}"
-                        alt="Logo"
-                        class="h-8 w-8 object-contain">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" class="h-8 w-8 object-contain">
                     <span>German Vocabulary App</span>
                 </a>
-                <div class="space-x-4 text-sm">
 
-                    <a href="{{ url_for('index') }}">Home</a>
+                <!-- DESKTOP MENU -->
+                <div class="hidden md:flex items-center gap-6 text-sm whitespace-nowrap">
 
-                    {% if 'user_id' in session %}
-                        <!-- If logged in: show username-->
-                        <a href="{{ url_for('account') }}">
+                    <a href="{{ url_for('index') }}" class="hover:text-yellow-300">Home</a>
+
+                    {% if session.user_id %}
+                        <a href="{{ url_for('public_profile', username=session['username']) }}"
+                        class="hover:text-yellow-300 transition">
                             {{ session['username'] }}
                         </a>
-
                     {% else %}
-                        <!-- If not logged in: show "Log in" -->
-                        <a href="{{ url_for('login') }}">Log in</a>
+                        <a href="{{ url_for('login') }}" class="hover:text-yellow-300">Log in</a>
                     {% endif %}
 
-                    <a href="/settings" class="ml-3 text-white">Settings</a>
+                    <a href="/rankings" class="hover:text-yellow-300">Rankings</a>
 
+                    <!-- SETTINGS DROPDOWN -->
+                    <div class="relative group">
+                        <button class="hover:text-yellow-300 transition">Settings</button>
+
+                        <div class="absolute right-0 mt-1 w-40 bg-black/80 backdrop-blur-md rounded-lg shadow-lg 
+                                    opacity-0 translate-y-1 pointer-events-none 
+                                    group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto
+                                    transition-all duration-150">
+
+                            <a href="{{ url_for('settings') }}"
+                            class="block px-4 py-2 hover:bg-yellow-400 hover:text-black rounded-t-lg transition">
+                                Preferences
+                            </a>
+
+                            <a href="{{ url_for('account') }}"
+                            class="block px-4 py-2 hover:bg-yellow-400 hover:text-black rounded-b-lg transition">
+                                Account Settings
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- MOBILE MENU BUTTON -->
+                <button class="md:hidden text-3xl" @click="open = !open">
+                    ☰
+                </button>
+
             </nav>
+
+            <!-- MOBILE DROPDOWN MENU -->
+            <div x-show="open" x-transition
+                class="md:hidden bg-black/80 backdrop-blur-md text-white px-4 py-4 space-y-3 text-lg">
+
+                <a href="{{ url_for('index') }}" class="block">Home</a>
+
+                {% if session.user_id %}
+                    <a href="{{ url_for('public_profile', username=session['username']) }}" class="block">
+                        {{ session['username'] }}
+                    </a>
+                    <a href="/u/{{ session.username }}" class="block">Profile</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="block">Log in</a>
+                {% endif %}
+
+                <a href="/rankings" class="block">Rankings</a>
+
+                <hr class="border-white/20">
+
+                <a href="{{ url_for('settings') }}" class="block">Preferences</a>
+                <a href="{{ url_for('account') }}" class="block">Account Settings</a>
+            </div>
         </header>
+
 
         <!-- Main content -->
         <main class="flex-1">

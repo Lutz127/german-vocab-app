@@ -1,11 +1,23 @@
-import sqlite3, re, os, json
+import sqlite3, re, os, json, uuid
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from flask import Flask, render_template, session, g, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, session, g, request, redirect, url_for, flash, jsonify, send_from_directory
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+from datetime import datetime, timedelta, date
+from PIL import Image, ImageOps, ImageDraw
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "fallback-secret")
+
+# Profile Pictures
+UPLOAD_FOLDER = os.path.join("static", "uploads")
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
+
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Secure session cookies
 app.config["SESSION_COOKIE_HTTPONLY"] = True
@@ -44,6 +56,54 @@ def get_db():
             g.db.row_factory = sqlite3.Row
             g.db.execute("PRAGMA foreign_keys = ON")
     return g.db
+
+def calculate_level(xp):
+    level = int((xp / 100) ** 0.7) + 1
+    return max(level, 1)
+
+def xp_for_next_level(level):
+    return int((level ** 1.4) * 120)
+
+
+def update_streak(user_id):
+    db = get_db()
+
+    user = execute(db,
+        "SELECT streak, last_active FROM users WHERE id = %s",
+        (user_id,)
+    ).fetchone()
+
+    today = date.today()
+
+    # If no last_active yet → first login/play ever
+    if not user["last_active"]:
+        execute(db,
+            "UPDATE users SET streak = 1, last_active = %s WHERE id = %s",
+            (today, user_id)
+        )
+        return
+
+    last = datetime.strptime(str(user["last_active"]), "%Y-%m-%d").date()
+
+    # If already played today do nothing
+    if last == today:
+        return
+
+    # If played yesterday streak continues
+    if last == today - timedelta(days=1):
+        new_streak = user["streak"] + 1
+    else:
+        # Missed a day = streak resets
+        new_streak = 1
+
+    execute(db,
+        "UPDATE users SET streak = %s, last_active = %s WHERE id = %s",
+        (new_streak, today, user_id)
+    )
+
+@app.route('/uploads/<path:filename>')
+def uploaded_file(filename):
+    return send_from_directory('uploads', filename)
 
 @app.teardown_appcontext
 def close_db(exception):
@@ -154,23 +214,75 @@ def save_score():
 
     db = get_db()
 
+    update_streak(session["user_id"])
+
     existing = execute(db,
         "SELECT * FROM scores WHERE user_id = %s AND category = %s",
         (session["user_id"], category)
     ).fetchone()
 
+    earned_new_record = False
+
     if existing:
         if score > existing["best_score"] or (score == existing["best_score"] and time < existing["best_time"]):
+            earned_new_record = True
             execute(db, """
                 UPDATE scores
                 SET best_score = %s, best_time = %s
                 WHERE id = %s
             """, (score, time, existing["id"]))
     else:
+        earned_new_record = True
         execute(db, """
             INSERT INTO scores (user_id, category, best_score, best_time)
             VALUES (%s, %s, %s, %s)
         """, (session["user_id"], category, score, time))
+
+    if not earned_new_record:
+        db.commit()
+        return jsonify({"status": "no_xp"})
+
+    # XP system
+
+    # category size from preloaded dictionary
+    total_words = CATEGORY_SIZES.get(category, 1)
+    percent = int((score / total_words) * 100)
+
+    # speed bonus
+    speed_bonus = 0
+    if time < 40:
+        speed_bonus = 20
+    elif time < 70:
+        speed_bonus = 10
+
+    xp_gain = percent + speed_bonus
+
+    # fetch current XP/Level
+    user = execute(db,
+        "SELECT xp, level, next_level_xp, streak FROM users WHERE id = %s",
+        (session["user_id"],)
+    ).fetchone()
+
+    current_xp = user["xp"]
+    level = user["level"]
+    next_req = user["next_level_xp"]
+    streak = user["streak"]
+
+    # GIVE XP
+    current_xp += xp_gain
+
+    # HANDLE LEVEL UPS
+    while current_xp >= next_req:
+        current_xp -= next_req
+        level += 1
+        next_req = int(next_req * 1.25)  # increasing curve
+
+    # update user XP and level
+    execute(db, """
+        UPDATE users
+        SET xp = %s, level = %s, next_level_xp = %s
+        WHERE id = %s
+    """, (current_xp, level, next_req, session["user_id"]))
 
     db.commit()
     return jsonify({"status": "ok"})
@@ -269,6 +381,12 @@ def account():
 
     db = get_db()
 
+    # Load user data
+    user = execute(db,
+        "SELECT id, username, avatar, xp, level, next_level_xp, streak, bio FROM users WHERE id = %s",
+        (session["user_id"],)
+    ).fetchone()
+
     # Fetch all stats for this user
     stats = execute(db, """
         SELECT category, best_score, best_time
@@ -287,7 +405,7 @@ def account():
     """, (session["user_id"],)).fetchall()
 
     return render_template("account.html",
-                           username=session["username"],
+                           profile=user,
                            stats=stats,
                            failed=failed,
                            category_sizes=CATEGORY_SIZES)
@@ -401,6 +519,9 @@ def save_leaderboard():
     score = data["score"]
     time = data["time"]
 
+    if score < 100:
+        return jsonify({"status": "ignored"})
+
     db = get_db()
 
     execute(db, """
@@ -416,22 +537,38 @@ def api_leaderboard(category):
     db = get_db()
 
     rows = execute(db, """
-        SELECT username, score, time
-        FROM leaderboard
-        WHERE category = %s
-        AND (user_id, score, time) IN (
+        SELECT l.username, l.score, l.time
+        FROM leaderboard l
+        JOIN (
             SELECT user_id,
-                   MAX(score) AS best_score,
-                   MIN(time)  AS best_time
+                   MAX(score) AS best_score
             FROM leaderboard
             WHERE category = %s
             GROUP BY user_id
-        )
-        ORDER BY score DESC, time ASC
-        LIMIT 10
-    """, (category, category)).fetchall()
+        ) s
+        ON l.user_id = s.user_id AND l.score = s.best_score
+        JOIN (
+            SELECT user_id,
+                   MIN(time) AS best_time
+            FROM leaderboard
+            WHERE category = %s
+            AND score = (
+                SELECT MAX(score)
+                FROM leaderboard AS l2
+                WHERE l2.user_id = leaderboard.user_id
+                AND l2.category = %s
+            )
+            GROUP BY user_id
+        ) t
+        ON l.user_id = t.user_id AND l.time = t.best_time
+        WHERE l.category = %s
+        ORDER BY l.score DESC, l.time ASC
+        LIMIT 10;
+    """, (category, category, category, category)).fetchall()
 
     return jsonify([dict(r) for r in rows])
+
+
 
 def load_category_sizes():
     sizes = {}
@@ -447,6 +584,126 @@ def load_category_sizes():
     return sizes
 
 CATEGORY_SIZES = load_category_sizes()
+
+@app.route("/u/<username>")
+def public_profile(username):
+    db = get_db()
+
+    # Check user exists
+    user = execute(db,
+        "SELECT id, username, xp, level, next_level_xp, streak, bio, avatar FROM users WHERE username = %s",
+        (username,)
+    ).fetchone()
+
+    if not user:
+        return render_template("404.html"), 404
+
+    # Load their stats
+    stats = execute(db, """
+        SELECT category, best_score, best_time
+        FROM scores
+        WHERE user_id = %s
+        AND category != 'failed_words'
+        ORDER BY category
+    """, (user["id"],)).fetchall()
+
+    # Calculate XP percentage
+    xp = user["xp"]
+    next_xp = user["next_level_xp"]
+    xp_percent = min(int((xp / next_xp) * 100), 100) if next_xp > 0 else 0
+
+     # 4) Determine global rank
+    ranked_users = execute(db, """
+        SELECT id
+        FROM users
+        ORDER BY level DESC, xp DESC, streak DESC, created_at ASC
+    """).fetchall()
+
+    rank = 1
+    for row in ranked_users:
+        if row["id"] == user["id"]:
+            break
+        rank += 1
+
+    return render_template("public_profile.html",
+                           profile=user,
+                           stats=stats,
+                           xp_percent=xp_percent,
+                           category_sizes=CATEGORY_SIZES,
+                           rank=rank)
+
+@app.route("/rankings")
+def global_rankings():
+    db = get_db()
+
+    # Fetch all users sorted by level, xp, streak, created_at
+    users = execute(db, """
+        SELECT id, username, level, xp, streak, created_at
+        FROM users
+        ORDER BY level DESC, xp DESC, streak DESC, created_at ASC
+        LIMIT 100
+    """).fetchall()
+
+    # Compute rank numbers (1-based)
+    ranked = []
+    rank = 1
+    for u in users:
+        ranked.append({
+            "rank": rank,
+            "username": u["username"],
+            "level": u["level"],
+            "xp": u["xp"],
+            "streak": u["streak"],
+        })
+        rank += 1
+
+    return render_template("rankings.html", users=ranked)
+
+@app.route("/upload_avatar", methods=["POST"])
+def upload_avatar():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    file = request.files.get("avatar")
+    if not file or file.filename == "":
+        flash("No file selected.")
+        return redirect(request.referrer or url_for("account"))
+
+    if not allowed_file(file.filename):
+        flash("Unsupported file type.")
+        return redirect(request.referrer or url_for("account"))
+
+    # Generate *.png filename
+    filename = secure_filename(f"{session['user_id']}_{uuid.uuid4().hex}.png")
+    save_path = os.path.join(UPLOAD_FOLDER, filename)
+
+    try:
+        img = Image.open(file.stream).convert("RGBA")
+
+        size = 256
+        img = ImageOps.fit(img, (size, size), Image.LANCZOS)
+
+        mask = Image.new("L", (size, size), 0)
+        draw = ImageDraw.Draw(mask)
+        draw.ellipse((0, 0, size, size), fill=255)
+        img.putalpha(mask)
+
+        img.save(save_path, format="PNG")
+
+    except Exception as e:
+        print("Avatar processing error:", e)
+        flash("There was a problem processing your image.")
+        return redirect(request.referrer or url_for("account"))
+
+    # Store only the filename
+    db = get_db()
+    rel_path = f"uploads/{filename}"
+    execute(db, "UPDATE users SET avatar = %s WHERE id = %s",
+            (rel_path, session["user_id"]))
+    db.commit()
+
+    flash("Profile picture updated!")
+    return redirect(url_for("account"))
 
 if __name__ == "__main__":
     app.run(debug=True)

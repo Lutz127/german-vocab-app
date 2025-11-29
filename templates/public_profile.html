@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ profile.username }} — Profile{% endblock %}
+
+{% block content %}
+
+<div class="max-w-5xl mx-auto mt-10 text-white">
+
+    <!-- Top Section: Avatar + Name + Flag + Bio -->
+    <div class="bg-black/40 p-6 rounded-2xl flex items-center gap-6">
+        
+        <!-- Avatar -->
+        <img src="{{ url_for('static', filename=profile.avatar) if profile.avatar
+                else url_for('static', filename='img/default_pfp.png') }}"
+            class="w-32 h-32 rounded-full object-cover border-4 border-white/20">
+
+
+        <div class="flex-1">
+            <div class="flex items-center gap-3">
+                <h1 class="text-5xl font-extrabold">{{ profile.username }}</h1>
+
+                {% if profile.flag %}
+                    <img src="{{ url_for('static', filename='flags/' ~ profile.flag ~ '.svg') }}"
+                         class="h-7 rounded shadow">
+                {% endif %}
+            </div>
+
+            <p class="text-gray-300 mt-2 max-w-md">
+                {{ profile.bio or "This user has not written a bio yet." }}
+            </p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+
+        <!-- Completed Quizzes -->
+        <div class="bg-black/40 p-6 rounded-xl text-center">
+            <h2 class="text-2xl font-bold">Completed Quizzes</h2>
+            <p class="mt-2 text-3xl font-extrabold text-yellow-300">{{ stats|length }}</p>
+        </div>
+
+        <!-- Streak -->
+        <div class="bg-black/40 p-6 rounded-xl text-center">
+            <h2 class="text-2xl font-bold">Streak</h2>
+            <p class="mt-2 text-3xl font-extrabold text-yellow-300">
+                🔥 {{ profile.streak or 0 }}
+            </p>
+        </div>
+
+        <!-- Rank -->
+        <div class="bg-black/40 p-6 rounded-xl text-center">
+            <h2 class="text-2xl font-bold">Rank</h2>
+            <p class="mt-2 text-3xl font-extrabold text-yellow-300">#{{ rank }}</p>
+        </div>
+    </div>
+
+    <!-- LEVEL CARD -->
+    <div class="bg-black/40 p-6 rounded-2xl mt-8">
+        <h2 class="text-4xl font-extrabold text-center">Level {{ profile.level or 1 }}</h2>
+
+        <!-- XP Bar -->
+        <div class="mt-6 bg-black/60 rounded-full h-6 overflow-hidden">
+            <div class="h-full bg-lime-400"
+                style="width: {{ xp_percent }}%"></div>
+        </div>
+
+        <p class="mt-2 text-center text-gray-300">
+            {{ profile.xp }}/{{ profile.next_level_xp }} XP
+        </p>
+    </div>
+
+    <!-- CATEGORY GRID (A1, A2, B1...) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+
+        {% for item in stats %}
+
+            {% set total = category_sizes.get(item.category, 0) %}
+            {% set raw = (item.best_score / total * 100) if total else 0 %}
+            {% set percent = [raw, 100] | min | round(0) %}
+
+            <div class="bg-black/40 p-5 rounded-xl">
+                <div class="flex justify-between mb-2">
+                    <span class="text-2xl font-bold">
+                        {{ item.category | upper }}
+                    </span>
+                    <span class="text-xl font-bold">{{ item.best_score }} / {{ total }}</span>
+                </div>
+
+                <div class="w-full h-6 bg-black/60 rounded-full overflow-hidden">
+                    <div class="h-full bg-lime-400"
+                         style="width: {{ percent }}%"></div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

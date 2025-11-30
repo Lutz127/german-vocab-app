@@ -19,7 +19,7 @@
         <form action="{{ url_for('upload_avatar') }}" method="POST" enctype="multipart/form-data"
             class="flex flex-col items-center justify-center gap-6">
 
-            <img src="{{ url_for('static', filename=profile.avatar) if profile.avatar
+            <img src="{{ url_for('uploaded_file', filename=profile.avatar) if profile.avatar
                 else url_for('static', filename='img/default_pfp.png') }}"
                 class="w-32 h-32 rounded-full object-cover border-4 border-white/20">
 

@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "fallback-secret")
 
 # Profile Pictures
-UPLOAD_FOLDER = os.path.join("static", "uploads")
+UPLOAD_FOLDER = "/var/data/uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
@@ -101,9 +101,9 @@ def update_streak(user_id):
         (new_streak, today, user_id)
     )
 
-@app.route('/uploads/<path:filename>')
+@app.route("/uploads/<filename>")
 def uploaded_file(filename):
-    return send_from_directory('uploads', filename)
+    return send_from_directory(UPLOAD_FOLDER, filename)
 
 @app.teardown_appcontext
 def close_db(exception):

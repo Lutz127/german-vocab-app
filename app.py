@@ -134,6 +134,10 @@ def update_streak(user_id):
         (new_streak, today, user_id)
     )
 
+@app.route("/")
+def root():
+    return redirect("/a1")
+
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)

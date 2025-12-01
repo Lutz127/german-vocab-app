@@ -445,7 +445,29 @@ This required splitting answers, trimming whitespace, normalizing case, and chec
 
 ## Update Changelog
 
-### Version 1.3 (December 1st 2025)
+### v1.3.1 (December 1st 2025)
+
+- Added full **country selection** with autocomplete + country flag display on public profiles
+
+- Added **biography** field
+
+- Users can now **change their username**
+
+- Added **account deletion** option
+
+- Improved public profile layout + long bio wrapping
+
+- Fixed progress bars for all A1 subcategories to accurately reflect server-side best scores
+
+- Fixed leaderboard logic
+
+- Fixed failed-words card activation logic
+
+- Fixed homepage progress syncing with database
+
+- Improved flag rendering using Twemoji
+
+### v1.3 (December 1st 2025)
 
 - Added full A1 vocabulary dataset (50 JSON categories)
 

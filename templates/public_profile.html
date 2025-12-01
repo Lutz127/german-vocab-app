@@ -17,15 +17,16 @@
 
         <div class="flex-1">
             <div class="flex items-center gap-3">
-                <h1 class="text-5xl font-extrabold">{{ profile.username }}</h1>
-
-                {% if profile.flag %}
-                    <img src="{{ url_for('static', filename='flags/' ~ profile.flag ~ '.svg') }}"
-                         class="h-7 rounded shadow">
-                {% endif %}
+                <h1 class="text-5xl font-extrabold">{{ profile.username }}
+                    {% if profile.country %}
+                        <span class="profile-flag emoji">
+                            {{ profile.country | country_flag }}
+                        </span>
+                    {% endif %}
+                </h1>
             </div>
 
-            <p class="text-gray-300 mt-2 max-w-md">
+            <p class="text-gray-300 mt-2 max-w-md break-words max-w-3xl">
                 {{ profile.bio or "This user has not written a bio yet." }}
             </p>
         </div>
@@ -69,12 +70,12 @@
         </p>
     </div>
 
-    <!-- CATEGORY GRID (A1, A2, B1...) -->
+    <!-- CATEGORY GRID -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 
         {% for item in stats %}
 
-            {% set total = category_sizes.get(item.category, 0) %}
+            {% set total = item.total_words %}
             {% set raw = (item.best_score / total * 100) if total else 0 %}
             {% set percent = [raw, 100] | min | round(0) %}
 
@@ -87,14 +88,12 @@
                 </div>
 
                 <div class="w-full h-6 bg-black/60 rounded-full overflow-hidden">
-                    <div class="h-full bg-lime-400"
-                         style="width: {{ percent }}%"></div>
+                    <div class="h-full bg-lime-400" style="width: {{ percent }}%"></div>
                 </div>
             </div>
 
         {% endfor %}
     </div>
-
 </div>
 
 {% endblock %}

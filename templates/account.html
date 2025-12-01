@@ -4,17 +4,17 @@
 
 {% block content %}
 
-<div class="max-w-lg mx-auto bg-black/50 p-6 rounded-xl text-white text-center">
+<div class="max-w-2xl mx-auto bg-black/50 p-6 rounded-xl text-white text-center">
 
-    <h2 class="text-4xl font-bold mb-4">Account</h2>
+    <h2 class="text-6xl font-bold mb-4">Account</h2>
 
-    <p class="text-xl mb-6">
-        Logged in as: <span class="font-bold text-yellow-300">{{ username }}</span>
+    <p class="text-xl mb-9">
+        Logged in as: <span class="font-bold text-yellow-300">{{ session['username'] }}</span>
     </p>
 
     <!-- Avatar Upload -->
     <div class="mb-6 text-center">
-        <h3 class="text-3xl font-semibold mb-4">Profile Picture</h3>
+        <h3 class="text-4xl font-semibold mb-4">Profile Picture</h3>
 
         <form action="{{ url_for('upload_avatar') }}" method="POST" enctype="multipart/form-data"
             class="flex flex-col items-center justify-center gap-6">
@@ -34,7 +34,117 @@
         </form>
     </div>
 
-    <h3 class="text-2xl font-semibold mb-3">Your Best Scores</h3>
+    <!-- Username, Bio & Country Update -->
+    <div class="mt-10">
+        <h3 class="text-4xl font-semibold mb-4">Profile Settings</h3>
+
+        <!-- Change Username -->
+        <form action="{{ url_for('change_username') }}" method="POST" class="bg-black/40 p-4 rounded-lg mb-6">
+            <label class="block font-bold text-center mb-4 text-2xl">Change Username</label>
+            <input type="text" name="new_username"
+                value="{{ profile.username }}"
+                class="w-full p-3 rounded-lg bg-black/60 outline-none mb-3"
+                minlength="3" maxlength="20" required>
+            <button class="bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg hover:bg-yellow-500 transition w-full text-center">
+                Update Username
+            </button>
+        </form>
+
+        <!-- Change Bio -->
+        <form action="{{ url_for('change_bio') }}" method="POST" class="bg-black/40 p-4 rounded-lg mb-3">
+            <label class="block font-bold mb-4 text-center text-2xl">Biography</label>
+            <textarea name="bio"
+                    class="w-full p-3 rounded-lg bg-black/60 outline-none mb-3"
+                    rows="3"
+                    maxlength="250"
+                    placeholder="Write something about yourself...">{{ profile.bio }}</textarea>
+
+            <button class="bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg hover:bg-yellow-500 transition w-full text-center">
+                Update Bio
+            </button>
+        </form>
+
+        <!-- COUNTRY AUTOCOMPLETE -->
+        <div class="bg-black/40 p-4 rounded-lg mb-6 mt-6"
+            x-data="{
+                open: false,
+                search: '',
+                selectedCode: '{{ profile.country }}',
+                countries: [],
+
+                async loadCountries() {
+                    const res = await fetch('/static/data/countries.json');
+                    this.countries = await res.json();
+                    this.setInitial();
+                },
+
+                setInitial() {
+                    if (!this.selectedCode) return;
+                    const c = this.countries.find(x => x.code === this.selectedCode);
+                    if (c) this.search = c.name;
+                },
+
+                filtered() {
+                    if (!this.search) return this.countries;
+                    return this.countries.filter(c =>
+                        c.name.toLowerCase().includes(this.search.toLowerCase())
+                    );
+                },
+
+                pickCountry(c) {
+                    this.selectedCode = c.code;
+                    this.search = c.name;
+                    this.open = false;
+                }
+            }"
+            x-init="loadCountries()">
+
+            <h3 class="block font-bold mb-4 text-center text-2xl">Country</h3>
+
+            <form action="{{ url_for('update_country') }}" method="POST" class="relative">
+
+                <!-- SEARCH INPUT -->
+                <input id="country-input"
+                    type="text"
+                    placeholder="Start typing your country..."
+                    autocomplete="off"
+                    x-model="search"
+                    @input="open = true; selectedCode = null"
+                    @focus="open = true"
+                    class="w-full p-3 rounded-lg bg-black/40 text-white border border-white/20 
+                        hover:bg-black/50 transition outline-none">
+
+                <!-- Hidden ISO code -->
+                <input type="hidden" id="country-code" name="country" :value="selectedCode">
+
+                <!-- AUTOCOMPLETE DROPDOWN -->
+                <div x-show="open"
+                    @click.outside="open = false"
+                    x-transition
+                    class="absolute w-full bg-black/70 backdrop-blur-md border border-white/20
+                        rounded-lg shadow-xl mt-2 z-50 max-h-60 overflow-y-auto">
+
+                    <template x-for="c in filtered()" :key="c.code">
+                        <div class="p-3 hover:bg-white/10 cursor-pointer flex items-center justify-start"
+                            @click="pickCountry(c)">
+                            <span x-text="c.name"></span>
+                        </div>
+                    </template>
+
+                </div>
+
+                <!-- SAVE BUTTON -->
+                <button class="mt-4 bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg 
+                            hover:bg-yellow-500 transition w-full text-center">
+                    Save Country
+                </button>
+            </form>
+        </div>
+
+
+
+
+    <h3 class="text-3xl font-semibold mb-3">Your Best Scores</h3>
 
     <div class="space-y-3 text-left">
         {% for item in stats %}
@@ -69,7 +179,7 @@
     <p class="text-gray-400">No best scores yet!</p>
     {% endif %}
 
-    <h3 class="text-2xl font-semibold mt-8 mb-3">Words You Failed</h3>
+    <h3 class="text-3xl font-semibold mt-8 mb-3">Words You Failed</h3>
 
     {% if failed %}
     <div class="space-y-2">
@@ -92,6 +202,84 @@
     </form>
     {% endif %}
 
+    <!-- DELETE ACCOUNT -->
+    <form action="{{ url_for('delete_account') }}" method="POST"
+        onsubmit="return confirm('⚠️ This cannot be undone.\nAre you SURE you want to delete your account forever?');">
+
+        <button class="mt-4 bg-red-600 hover:bg-red-700 w-full px-4 py-3 rounded-lg
+                    font-bold text-white transition">
+            Delete My Account
+        </button>
+    </form>
+
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+    const input = document.getElementById("country-input");
+    const dropdown = document.getElementById("country-dropdown");
+    const hiddenCode = document.getElementById("country-code");
+
+    // Load countries
+    const countries = await fetch("/static/data/countries.json").then(r => r.json());
+
+    function isoToEmoji(code) {
+        return [...code.toUpperCase()]
+            .map(c => String.fromCodePoint(127397 + c.charCodeAt(0)))
+            .join("");
+    }
+
+    // Filter function
+    function filterCountries(q) {
+        q = q.toLowerCase();
+        return countries.filter(
+            c => c.name.toLowerCase().includes(q)
+        );
+    }
+
+    input.addEventListener("input", () => {
+        const query = input.value.trim();
+        dropdown.innerHTML = "";
+
+        if (!query) {
+            dropdown.classList.add("hidden");
+            return;
+        }
+
+        let matches = filterCountries(query);
+        if (matches.length === 0) {
+            dropdown.classList.add("hidden");
+            return;
+        }
+
+        dropdown.classList.remove("hidden");
+
+        matches.forEach(c => {
+            const item = document.createElement("div");
+            item.className = "p-3 hover:bg-black/40 cursor-pointer flex items-center gap-3";
+
+            item.innerHTML = `
+                <span class="text-2xl">${isoToEmoji(c.code)}</span>
+                <span>${c.name}</span>
+            `;
+
+            item.onclick = () => {
+                input.value = `${isoToEmoji(c.code)} ${c.name}`;
+                hiddenCode.value = c.code;
+                dropdown.classList.add("hidden");
+            };
+
+            dropdown.appendChild(item);
+        });
+    });
+
+    // Hide if clicked outside
+    document.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target) && e.target !== input) {
+            dropdown.classList.add("hidden");
+        }
+    });
+});
+</script>
 
 {% endblock %}

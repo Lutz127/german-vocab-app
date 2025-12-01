@@ -15,7 +15,10 @@
             <div class="flex items-center gap-4">
                 <span class="text-3xl font-bold text-yellow-300">#{{ user.rank }}</span>
 
-                <a href="/u/{{ user.username }}" class="text-2xl font-semibold hover:text-yellow-300">
+                <a href="/u/{{ user.username }}" class="flex items-center gap-2 text-2xl font-semibold hover:text-yellow-300">
+                    {% if user.country %}
+                        <span class="emoji-flag">{{ user.country | country_flag }}</span>
+                    {% endif %}
                     {{ user.username }}
                 </a>
             </div>

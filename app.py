@@ -134,6 +134,13 @@ def update_streak(user_id):
         (new_streak, today, user_id)
     )
 
+def iso_to_emoji(code):
+    if not code:
+        return ""
+    return "".join(chr(127397 + ord(c)) for c in code.upper())
+
+app.jinja_env.filters["country_flag"] = iso_to_emoji
+
 @app.route("/")
 def root():
     return redirect("/a1")
@@ -206,7 +213,7 @@ def api_progress():
         return jsonify({})
 
     db = get_db()
-    
+
     rows = execute(db, """
         SELECT category, best_score
         FROM scores
@@ -214,17 +221,27 @@ def api_progress():
     """, (session["user_id"],)).fetchall()
 
     result = {}
+
     for row in rows:
-        raw_cat = row["category"]  # example: "a1_colors" or "colors"
+        raw_cat = row["category"]
 
-        # produce a cleaned key for the front-end (no a1_ prefix)
-        cleaned = raw_cat.lower().replace("a1_", "")
+        # Skip invalid categories
+        if not raw_cat:
+            continue
 
-        # resolve the stored category to the canonical key in CATEGORY_SIZES
+        raw_cat = str(raw_cat)
+
+        # Clean version for frontend (e.g., colors, numbers, etc.)
+        cleaned = raw_cat.lower()
+        if cleaned.startswith("a1_"):
+            cleaned = cleaned[3:]
+
+        # Resolve to canonical full key inside CATEGORY_SIZES
         key = resolve_category_key(raw_cat) or raw_cat
 
         total_words = CATEGORY_SIZES.get(key, 0)
-        best_score = row.get("best_score") or 0
+        best_score = row["best_score"] or 0  # FIXED
+
         if total_words == 0:
             result[cleaned] = 0
         else:
@@ -243,12 +260,10 @@ def register():
         confirm = request.form["confirm_password"]
 
         if not valid_username(username):
-            flash("Invalid username. Use 3–20 letters, numbers, or underscores only.")
             return redirect("/register")
 
-
         if password != confirm:
-            flash("Passwords do not match!")
+            flash("Passwords do not match")
             return redirect("/register")
 
         db = get_db()
@@ -481,6 +496,119 @@ def clear_best_scores():
     flash("Best Scores cleared!")
     return redirect("/account")
 
+@app.route("/change_username", methods=["POST"])
+def change_username():
+    if "user_id" not in session:
+        return redirect("/login")
+
+    new_username = request.form.get("new_username", "").strip()
+
+    if not valid_username(new_username):
+        flash("Invalid username. Use 3–20 letters, numbers, or underscores.")
+        return redirect("/account")
+
+    db = get_db()
+
+    # Check if username is taken
+    existing = execute(db,
+        "SELECT id FROM users WHERE username = %s",
+        (new_username,)
+    ).fetchone()
+
+    if existing:
+        flash("That username is already taken.")
+        return redirect("/account")
+
+    # Update username
+    execute(db,
+        "UPDATE users SET username = %s WHERE id = %s",
+        (new_username, session["user_id"])
+    )
+    db.commit()
+
+    # Update session
+    session["username"] = new_username
+
+    flash("Username updated!")
+    return redirect("/account")
+
+@app.route("/change_bio", methods=["POST"])
+def change_bio():
+    if "user_id" not in session:
+        return redirect("/login")
+
+    new_bio = request.form.get("bio", "").strip()
+
+    # Optional: limit length
+    if len(new_bio) > 150:
+        flash("Bio must be 150 characters or less.")
+        return redirect("/account")
+
+    db = get_db()
+    execute(db,
+        "UPDATE users SET bio = %s WHERE id = %s",
+        (new_bio, session["user_id"])
+    )
+    db.commit()
+
+    flash("Bio updated!")
+    return redirect("/account")
+
+@app.route("/delete_account", methods=["POST"])
+def delete_account():
+    if "user_id" not in session:
+        return redirect("/login")
+
+    user_id = session["user_id"]
+    db = get_db()
+
+    # 1. Remove avatar file if exists
+    user = execute(db, "SELECT avatar FROM users WHERE id = %s", (user_id,)).fetchone()
+    if user and user["avatar"]:
+        avatar_path = os.path.join(UPLOAD_FOLDER, user["avatar"])
+        if os.path.exists(avatar_path):
+            try:
+                os.remove(avatar_path)
+            except:
+                pass  # safe fallback
+
+    # 2. Delete related database entries
+    execute(db, "DELETE FROM failed_words WHERE user_id = %s", (user_id,))
+    execute(db, "DELETE FROM scores WHERE user_id = %s", (user_id,))
+    execute(db, "DELETE FROM leaderboard WHERE user_id = %s", (user_id,))
+
+    # 3. Delete user
+    execute(db, "DELETE FROM users WHERE id = %s", (user_id,))
+    db.commit()
+
+    # 4. Log out
+    session.clear()
+
+    # 5. Flash message
+    flash("Your account has been permanently deleted.")
+
+    return redirect("/login")
+
+@app.route("/update_country", methods=["POST"])
+def update_country():
+    if "user_id" not in session:
+        return redirect("/login")
+
+    country = request.form.get("country") or None
+
+    if country and len(country) == 2:
+        pass
+    else:
+        country = None
+
+    db = get_db()
+    execute(db, "UPDATE users SET country=%s WHERE id=%s",
+            (country, session["user_id"]))
+    db.commit()
+
+    flash("Country updated!")
+    return redirect("/account")
+
 @app.route("/account")
 def account():
     if "user_id" not in session:
@@ -644,7 +772,7 @@ def save_leaderboard():
     execute(db, """
         INSERT INTO leaderboard (user_id, username, category, score, time)
         VALUES (%s, %s, %s, %s, %s)
-    """, (session["user_id"], session["username"], category, score, time))
+    """, (session["user_id"], session["username"], resolved_key, score, time))
 
     db.commit()
     return jsonify({"status": "ok"})
@@ -653,7 +781,8 @@ def save_leaderboard():
 def api_leaderboard(category):
     db = get_db()
 
-    total = CATEGORY_SIZES.get(category, 0)
+    resolved_key = resolve_category_key(category) or category
+    total = CATEGORY_SIZES.get(resolved_key, 0)
 
     rows = execute(db, """
         SELECT username, MIN(time) AS time
@@ -663,7 +792,7 @@ def api_leaderboard(category):
         GROUP BY username
         ORDER BY time ASC
         LIMIT 10;
-    """, (category, total)).fetchall()
+    """, (resolved_key, total)).fetchall()
 
     return jsonify([dict(r) for r in rows])
 
@@ -696,15 +825,18 @@ def public_profile(username):
 
     # Check user exists
     user = execute(db,
-        "SELECT id, username, xp, level, next_level_xp, streak, bio, avatar FROM users WHERE username = %s",
+        """SELECT id, username, xp, level, next_level_xp, streak, bio, avatar, country
+        FROM users
+        WHERE username = %s""",
         (username,)
     ).fetchone()
+
 
     if not user:
         return render_template("404.html"), 404
 
-    # Load their stats
-    stats = execute(db, """
+    # Load raw stats
+    raw_stats = execute(db, """
         SELECT category, best_score, best_time
         FROM scores
         WHERE user_id = %s
@@ -712,12 +844,28 @@ def public_profile(username):
         ORDER BY category
     """, (user["id"],)).fetchall()
 
-    # Calculate XP percentage
+    # Process stats
+    processed_stats = []
+    for row in raw_stats:
+        raw_cat = row["category"]                       # e.g. "colors"
+        resolved = resolve_category_key(raw_cat) or raw_cat  # e.g. "A1_colors"
+
+        total_words = CATEGORY_SIZES.get(resolved, 0)
+
+        processed_stats.append({
+            "raw": raw_cat,             # what user answered in
+            "category": resolved,       # normalized for lookup
+            "best_score": row["best_score"],
+            "best_time": row["best_time"],
+            "total_words": total_words
+        })
+
+    # XP progress bar
     xp = user["xp"]
     next_xp = user["next_level_xp"]
     xp_percent = min(int((xp / next_xp) * 100), 100) if next_xp > 0 else 0
 
-     # 4) Determine global rank
+    # Determine global rank
     ranked_users = execute(db, """
         SELECT id
         FROM users
@@ -732,18 +880,18 @@ def public_profile(username):
 
     return render_template("public_profile.html",
                            profile=user,
-                           stats=stats,
+                           stats=processed_stats,
                            xp_percent=xp_percent,
-                           category_sizes=CATEGORY_SIZES,
-                           rank=rank)
+                           rank=rank,
+                           category_sizes=CATEGORY_SIZES)
 
 @app.route("/rankings")
 def global_rankings():
     db = get_db()
 
-    # Fetch all users sorted by level, xp, streak, created_at
+    # Fetch all users
     users = execute(db, """
-        SELECT id, username, level, xp, streak, created_at
+        SELECT id, username, level, xp, streak, country, created_at
         FROM users
         ORDER BY level DESC, xp DESC, streak DESC, created_at ASC
         LIMIT 100
@@ -759,6 +907,7 @@ def global_rankings():
             "level": u["level"],
             "xp": u["xp"],
             "streak": u["streak"],
+            "country": u["country"],
         })
         rank += 1
 

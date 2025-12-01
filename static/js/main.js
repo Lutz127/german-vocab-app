@@ -4,13 +4,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const quizContainer = document.getElementById("quiz-container");
     const home = document.querySelector(".home-content");
 
-    // Load user settings
+
     fetch("/api/settings")
     .then(res => res.json())
     .then(s => {
         if (s.default_mode) quizMode = s.default_mode;
         updateModeButtons();
     });
+
+    // Load user progress from backend
+    fetch("/api/progress")
+        .then(res => res.json())
+        .then(data => {
+            userProgress = data;
+            // Clear outdated local data if backend returns no progress
+            if (Object.keys(data).length === 0) {
+                localStorage.removeItem("userProgress");
+            }
+            localStorage.setItem("userProgress", JSON.stringify(userProgress));
+            updateCategoryProgressBars();
+        });
 
     // Disable/enable Failed Words card based on count
     fetch("/api/failed_words_count")
@@ -149,12 +162,14 @@ function formatEnglishWithGender(item) {
 }
 
 
-const userProgress = JSON.parse(localStorage.getItem("userProgress")) || {
+/* const userProgress = JSON.parse(localStorage.getItem("userProgress")) || {
     animals: 0, basic_phrases: 0, body: 0, city_places: 0, clothing: 0, colors: 0, common_adjectives: 0, common_verbs: 0, communication: 0, condition: 0, conversation_particles: 0,
     countries_languages: 0, daily_activities: 0, daily_routine_nouns: 0, demonstratives: 0, directions: 0, everyday_objects: 0, family: 0, feelings: 0, food_drinks: 0, geography_basics: 0, hobbies_free_time: 0, home_furniture: 0, household_items: 0,
     media_technology: 0, modal_verbs: 0, nature: 0, negation: 0, numbers: 0, people_descriptions: 0, possessive_pronouns: 0, prepositions: 0, pronouns: 0, quantifiers: 0, school_work_verbs: 0, school: 0,
     sizes_measurements: 0, supermarket: 0, taste: 0, temperatures: 0, test: 0, time: 0, time_expressions: 0, toys: 0, transport_verbs: 0, transport: 0, w_questions: 0, weather: 0, work_jobs: 0
-};
+}; */
+
+let userProgress = {};
 
 const categoryGroups = {
     basics: [
@@ -588,13 +603,6 @@ async function showResults() {
     let minutes = Math.floor(totalTime / 60);
     let seconds = (totalTime % 60).toFixed(2);
 
-    // Save progress (percentage correct)
-    const percent = Math.floor((score / words.length) * 100);
-    userProgress[category] = percent;
-
-    // Store in localStorage
-    localStorage.setItem("userProgress", JSON.stringify(userProgress));
-
     // Save the score
     await fetch("/save_score", {
         method: "POST",
@@ -605,6 +613,15 @@ async function showResults() {
             time: totalTime
         })
     });
+
+    // Refresh progress from backend after saving score
+    fetch("/api/progress")
+        .then(r => r.json())
+        .then(data => {
+            userProgress = data;
+            localStorage.setItem("userProgress", JSON.stringify(data));
+            updateCategoryProgressBars();
+        });
 
     // Save leaderboard entry (wait for completion)
     await fetch("/save_leaderboard", {

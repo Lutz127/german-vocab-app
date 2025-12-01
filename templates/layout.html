@@ -44,7 +44,28 @@
     }
     </style>
 
+    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        twemoji.parse(document.body, { folder: "svg", ext: ".svg" });
+    });
+    </script>
 
+    <style>
+    img.emoji {
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        vertical-align: -0.1em;
+    }
+
+    img.profile-flag {
+        height: 1.3em;
+        width: 1.3em;
+        vertical-align: -0.15em;
+    }
+    </style>
+    
     <!-- Montserrat FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
 
@@ -92,6 +113,44 @@
         style="background: {{ settings.custom_color }};"
     {% endif %}
 >
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div id="flash-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 space-y-3">
+        {% for msg in messages %}
+            <div class="flash-msg bg-yellow-400 text-black font-bold px-6 py-3 rounded-xl shadow-lg
+                        opacity-0 transform scale-90 transition-all duration-500">
+            {{ msg }}
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const msgs = document.querySelectorAll(".flash-msg");
+
+        msgs.forEach((msg, i) => {
+            // Fade IN
+            setTimeout(() => {
+                msg.classList.remove("opacity-0", "scale-90");
+                msg.classList.add("opacity-100", "scale-100");
+            }, 50);
+
+            // Fade OUT after 2 seconds + index offset (if many)
+            setTimeout(() => {
+                msg.classList.remove("opacity-100", "scale-100");
+                msg.classList.add("opacity-0", "scale-90");
+            }, 2000 + i * 150);
+
+            // Remove from DOM after animation ends
+            setTimeout(() => {
+                msg.remove();
+            }, 2600 + i * 150);
+        });
+    });
+    </script>
 
     <div class="min-h-screen flex flex-col">
         <!-- Navbar -->
@@ -147,7 +206,7 @@
                             </a>
 
                             <a href="{{ url_for('logout') }}"
-                                class="block px-4 py-2 hover:bg-yellow-400 hover:text-black rounded-b-lg transition">
+                                class="block px-4 py-2 hover:bg-red-600 rounded-b-lg transition">
                                 Log out
                             </a>
                         </div>
@@ -183,6 +242,7 @@
 
                 <a href="{{ url_for('settings') }}" class="block">Preferences</a>
                 <a href="{{ url_for('account') }}" class="block">Account Settings</a>
+                <a href="{{ url_for('logout') }}" class="block">Log out</a>
             </div>
         </header>
 
@@ -198,7 +258,7 @@
         <!-- Footer -->
         <footer class="bg-slate-900/20 text-slate-200 text-xs">
             <div class="max-w-8xl mx-auto px-2 py-2 text-center">
-                <span>© 2025 Lutz127 • German Vocabulary App v1.3</span>
+                <span>© 2025 Lutz127 • German Vocabulary App v1.3.1</span>
             </div>
         </footer>
 

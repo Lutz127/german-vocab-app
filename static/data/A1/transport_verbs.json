@@ -6,6 +6,6 @@
     {"german": "abfahren", "english": "to depart / to leave", "example": "Der Zug fährt um 8 Uhr ab."},
     {"german": "ankommen", "english": "to arrive", "example": "Der Bus kommt gleich an."},
     {"german": "fliegen", "english": "to fly", "example": "Wir fliegen nach Spanien."},
-    {"german": "gehen / zu Fuß gehen", "english": "to walk / to go on foot", "example": "Ich gehe zu Fuß zur Schule."},
+    {"german": "zu Fuß gehen", "english": "to go on foot", "example": "Ich gehe zu Fuß zur Schule."},
     {"german": "mitnehmen", "english": "to take with", "example": "Ich nehme meinen Rucksack mit."}
 ]

@@ -10,7 +10,7 @@
     {"german": "die Wolke", "plural": "die Wolken", "english": "cloud", "example": "Viele Wolken am Himmel."},
     {"german": "wolkig / bewölkt", "english": "cloudy", "example": "Der Himmel ist bewölkt."},
     {"german": "der Sturm", "plural": "die Stürme", "english": "storm", "example": "Ein starker Sturm kommt."},
-    {"german": "das Gewitter / Blitz und Donner", "plural": "die Gewitter", "english": "thunderstorm", "example": "Heute Abend gibt es ein Gewitter."},
+    {"german": "das Gewitter", "plural": "die Gewitter", "english": "thunderstorm", "example": "Heute Abend gibt es ein Gewitter."},
     {"german": "der Blitz", "plural": "die Blitze", "english": "lightning", "example": "Ein Blitz schlägt ein."},
     {"german": "der Nebel", "plural": "die Nebel", "english": "fog", "example": "Es gibt viel Nebel."},
     {"german": "neblig", "english": "foggy", "example": "Es ist heute sehr neblig."},

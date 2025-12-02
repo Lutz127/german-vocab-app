@@ -12,7 +12,7 @@ This README describes how the application works, how the code is organized, and 
 
 ## Project Overview
 
-The application lets users practice German vocabulary through quizzes in many categories. Each quiz pulls data from JSON files stored in `/static/data/`. A user chooses a category and a quiz mode, either German → English or English → German. Once a quiz ends, the app shows score, time, and (if the you got 100% score) a leaderboard placement.
+The application lets users practice German vocabulary through quizzes in many categories, it currently includes **785 vocabulary words** in total for the A1 CEFR level. Each quiz pulls data from JSON files stored in `/static/data/`. A user chooses a category and a quiz mode, either German → English or English → German. Once a quiz ends, the app shows score, time, and (if the you got 100% score) a leaderboard placement.
 
 Incorrect answers get added to a personal “Failed Words” quiz, which becomes its own study mode. The user can return to failed words at any time for targeted practice.
 
@@ -444,6 +444,18 @@ This required splitting answers, trimming whitespace, normalizing case, and chec
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/14592b4c-8965-4770-9ba9-9189d7975e2a" />
 
 ## Update Changelog
+
+### v1.4 (December 2nd 2025)
+
+- Fixed category progress bars
+
+- Fixed "Your Best Scores" percentage display
+
+- Fixed correct / wrong sound effects
+
+- Added **Show Plurals** option
+
+- Added **Marathon Mode**
 
 ### v1.3.1 (December 1st 2025)
 

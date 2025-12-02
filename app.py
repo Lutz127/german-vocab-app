@@ -224,30 +224,25 @@ def api_progress():
 
     for row in rows:
         raw_cat = row["category"]
-
-        # Skip invalid categories
         if not raw_cat:
             continue
 
-        raw_cat = str(raw_cat)
+        # Resolve to canonical key like A1_colors, A1_marathon
+        key = resolve_category_key(raw_cat)
+        if not key:
+            continue
 
-        # Clean version for frontend (e.g., colors, numbers, etc.)
-        cleaned = raw_cat.lower()
-        if cleaned.startswith("a1_"):
-            cleaned = cleaned[3:]
-
-        # Resolve to canonical full key inside CATEGORY_SIZES
-        key = resolve_category_key(raw_cat) or raw_cat
-
+        # How many words total
         total_words = CATEGORY_SIZES.get(key, 0)
-        best_score = row["best_score"] or 0  # FIXED
+        best_score = row["best_score"] or 0
 
-        if total_words == 0:
-            result[cleaned] = 0
-        else:
-            result[cleaned] = int((best_score / total_words) * 100)
+        percent = int((best_score / total_words) * 100) if total_words else 0
+
+        # Use canonical lowercase key → a1_colors, a1_marathon
+        result[key.lower()] = percent
 
     return jsonify(result)
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -324,9 +319,15 @@ def save_score():
         return jsonify({"status": "error", "message": "not_logged_in"})
 
     data = request.get_json()
-    category = data["category"]
+    category = data.get("category", "").strip()
     score = data["score"]
     time = data["time"]
+
+    if not category or score is None or time is None:
+        return jsonify({"error": "missing_data"}), 400
+
+    if "marathon" in category:
+        category = "a1_marathon"
 
     # Prevent saving failed_words as score
     if category == "failed_words":
@@ -421,6 +422,7 @@ def save_failure():
     word = data["word"]               # German word
     english = data.get("english")     # English meaning
     gender = data.get("gender")       # m/f/n or None
+    plural = data.get("plural")       # plural form or None
 
     db = get_db()
 
@@ -436,15 +438,16 @@ def save_failure():
             SET failures = failures + 1,
                 english = %s,
                 gender = %s,
+                plural = %s,
                 category = %s
             WHERE id = %s
-        """, (english, gender, category, existing["id"]))
+        """, (english, gender, plural, category, existing["id"]))
     else:
         # Insert new entry
         execute(db, """
-            INSERT INTO failed_words (user_id, category, word, english, gender, failures)
-            VALUES (%s, %s, %s, %s, %s, %s)
-        """, (session["user_id"], category, word, english, gender, 1))
+            INSERT INTO failed_words (user_id, category, word, english, gender, plural, failures)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """, (session["user_id"], category, word, english, gender, plural, 1))
 
     db.commit()
     return jsonify({"status": "ok"})
@@ -456,7 +459,7 @@ def get_failed_words():
 
     db = get_db()
     rows = execute(db, """
-        SELECT word, english, gender, category, failures
+        SELECT word, english, gender, plural, category, failures
         FROM failed_words
         WHERE user_id = %s
         ORDER BY failures DESC
@@ -467,7 +470,8 @@ def get_failed_words():
         words.append({
             "german": row["word"],
             "english": row["english"] or "",
-            "gender": row["gender"] or None
+            "gender": row["gender"] or None,
+            "plural": row["plural"] or None
         })
 
     return jsonify(words)
@@ -623,13 +627,28 @@ def account():
     ).fetchone()
 
     # Fetch all stats for this user
-    stats = execute(db, """
+    raw_stats = execute(db, """
         SELECT category, best_score, best_time
         FROM scores
         WHERE user_id = %s
         AND category != 'failed_words'
         ORDER BY category
     """, (session["user_id"],)).fetchall()
+
+    processed_stats = []
+    for row in raw_stats:
+        raw_cat = row["category"]                         # "colors"
+        resolved = resolve_category_key(raw_cat) or raw_cat  # "A1_colors"
+
+        total_words = CATEGORY_SIZES.get(resolved, 0)
+
+        processed_stats.append({
+            "raw": raw_cat,
+            "category": resolved,                         # proper normalized key
+            "best_score": row["best_score"],
+            "best_time": row["best_time"],
+            "total_words": total_words
+        })
 
     # Fetch the user's failed words
     failed = execute(db, """
@@ -641,7 +660,7 @@ def account():
 
     return render_template("account.html",
                            profile=user,
-                           stats=stats,
+                           stats=processed_stats,
                            failed=failed,
                            category_sizes=CATEGORY_SIZES)
 
@@ -818,6 +837,18 @@ def load_category_sizes():
     return sizes
 
 CATEGORY_SIZES = load_category_sizes()
+CATEGORY_SIZES["a1_marathon"] = 200
+
+@app.route("/api/a1_files")
+def api_a1_files():
+    base = "static/data/A1"
+    files = []
+
+    for file in os.listdir(base):
+        if file.endswith(".json"):
+            files.append(file[:-5])  # remove .json
+
+    return jsonify(files)
 
 @app.route("/u/<username>")
 def public_profile(username):

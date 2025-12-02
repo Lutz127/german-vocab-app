@@ -203,6 +203,31 @@
             </label>
         </div>
 
+        <!-- SHOW PLURALS -->
+        <div>
+            <label class="font-bold text-xl block">Show Plurals</label>
+
+            <label class="flex items-center justify-between cursor-pointer mt-2">
+
+                <span>Display plural forms during German → English</span>
+
+                <div class="flex items-center">
+                    <input type="checkbox" name="plurals" class="sr-only peer"
+                        {% if settings.plurals %}checked{% endif %}>
+
+                    <div class="w-14 h-8 bg-gray-600 rounded-full flex items-center p-1
+                                transition-all duration-300
+                                peer-checked:bg-yellow-400
+                                peer-checked:justify-end">
+
+                        <div class="w-6 h-6 bg-white rounded-full transition-all duration-300"></div>
+                    </div>
+                </div>
+
+            </label>
+        </div>
+
+
         <!-- SUBMIT BUTTON -->
         <button class="bg-yellow-400 text-black font-bold px-6 py-3 rounded-xl w-full hover:bg-yellow-500">
             Save Changes

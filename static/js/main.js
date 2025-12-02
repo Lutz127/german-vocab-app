@@ -60,7 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const words = failed.map(item => ({
                     german: item.german || "(unknown)",
                     english: item.english || "(missing)",
-                    gender: item.gender || null
+                    gender: item.gender || null,
+                    plural: item.plural || null
                 }));
 
                 shuffle(words);
@@ -69,7 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // NORMAL CATEGORY (A1, A2, ...)
+            // A1 Marathon Mode
+            if (category === "a1_marathon" || category === "marathon") {
+                window.location.href = "/a1/marathon";
+                return;
+            }
+
+            // NORMAL CATEGORY
             const level = card.dataset.level;
 
             const response = await fetch(`/static/data/${level}/${category}.json`);
@@ -105,8 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-// Shuffles JSON file
 
+// Shuffles JSON file
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -161,18 +168,10 @@ function formatEnglishWithGender(item) {
     return englishFull;
 }
 
-
-/* const userProgress = JSON.parse(localStorage.getItem("userProgress")) || {
-    animals: 0, basic_phrases: 0, body: 0, city_places: 0, clothing: 0, colors: 0, common_adjectives: 0, common_verbs: 0, communication: 0, condition: 0, conversation_particles: 0,
-    countries_languages: 0, daily_activities: 0, daily_routine_nouns: 0, demonstratives: 0, directions: 0, everyday_objects: 0, family: 0, feelings: 0, food_drinks: 0, geography_basics: 0, hobbies_free_time: 0, home_furniture: 0, household_items: 0,
-    media_technology: 0, modal_verbs: 0, nature: 0, negation: 0, numbers: 0, people_descriptions: 0, possessive_pronouns: 0, prepositions: 0, pronouns: 0, quantifiers: 0, school_work_verbs: 0, school: 0,
-    sizes_measurements: 0, supermarket: 0, taste: 0, temperatures: 0, test: 0, time: 0, time_expressions: 0, toys: 0, transport_verbs: 0, transport: 0, w_questions: 0, weather: 0, work_jobs: 0
-}; */
-
 let userProgress = {};
 
 const categoryGroups = {
-    basics: [
+    a1_cat_basics: [
         "colors",
         "numbers",
         "time",
@@ -181,7 +180,7 @@ const categoryGroups = {
         "basic_phrases",
         "communication"
     ],
-    grammar_basics: [
+    a1_cat_grammar_basics: [
         "w_questions",
         "prepositions",
         "pronouns",
@@ -191,16 +190,75 @@ const categoryGroups = {
         "possesive_pronouns",
         "demonstratives",
         "quantifiers"
+    ],
+    a1_cat_people_daily_life: [
+        "family",
+        "clothing",
+        "home_furniture",
+        "people_descriptions",
+        "school",
+        "work_jobs",
+        "transport",
+        "hobbies_free_time",
+        "media_technology"
+    ],
+    a1_cat_objects_things: [
+        "food_drinks",
+        "household_items",
+        "everyday_objects",
+        "toys"
+    ],
+    a1_cat_environment: [
+        "weather",
+        "animals",
+        "nature",
+        "geography_basics",
+        "city_places"
+    ],
+    a1_cat_verbs: [
+        "common_verbs",
+        "daily_activities",
+        "modal_verbs",
+        "transport_verbs"
+    ],
+    a1_cat_adjectives: [
+        "common_adjectives",
+        "feelings",
+        "sizes_measurements"
     ]
 };
 
+function cleanKey(key) {
+    if (key.startsWith("a1_")) {
+        return key.slice(3);
+    }
+    return key;
+}
+
 function updateCategoryProgressBars() {
 
-    for (const [category, percent] of Object.entries(userProgress)) {
+    function cleanKey(key) {
+        return key.startsWith("a1_") ? key.slice(3) : key;
+    }
 
-        const outer = document.querySelector(`.progress-${category}`);
-        const inner = outer?.querySelector('.progress-inner');
-        if (!inner) continue;   // not on this page
+    for (const [mainCategory, subcats] of Object.entries(categoryGroups)) {
+
+        const outer = document.querySelector(`.progress-${mainCategory}`);
+        if (!outer) continue;
+
+        const inner = outer.querySelector(".progress-inner");
+        if (!inner) continue;
+
+        let total = 0;
+        const count = subcats.length;
+
+        for (const sub of subcats) {
+            const progressKey = `a1_${sub}`;
+            const value = userProgress[progressKey] ?? 0;
+            total += value;
+        }
+
+        const percent = Math.round(total / count);
 
         inner.style.width = percent + "%";
 
@@ -210,65 +268,69 @@ function updateCategoryProgressBars() {
         else if (percent < 60) color = "#f7bf46ff";
         else if (percent < 80) color = "#daf746ff";
         else if (percent < 99) color = "#63de4aff";
-        else if (percent >= 99) color = "#36ff54ff";
+        else color = "#36ff54ff";
 
         inner.style.backgroundColor = color;
 
-        if (percent >= 99) {
-            outer.classList.add("pulse-glow");
-        } else {
-            outer.classList.remove("pulse-glow");
-        }
+        if (percent >= 99) outer.classList.add("pulse-glow");
+        else outer.classList.remove("pulse-glow");
     }
 
-    for (const [mainCategory, subcats] of Object.entries(categoryGroups)) {
+    for (const [rawKey, percent] of Object.entries(userProgress)) {
 
-        const outer = document.querySelector(`.progress-${mainCategory}`);
-        if (!outer) continue;  // not on this page
+        const category = cleanKey(rawKey);
 
-        const inner = outer.querySelector(".progress-inner");
+        if (category.startsWith("cat_")) continue;
+
+        const outer = document.querySelector(`.progress-${category}`);
+        const inner = outer?.querySelector(".progress-inner");
         if (!inner) continue;
 
-        // Sum progress values of all subcategories
-        let total = 0;
-        let count = 0;
+        inner.style.width = percent + "%";
 
-        for (const sub of subcats) {
-            if (userProgress[sub] !== undefined) {
-                total += userProgress[sub];
-                count++;
-            }
-        }
-
-        // If no subcategories found, set to 0
-        const avg = count > 0 ? total / count : 0;
-
-        // Fill bar
-        inner.style.width = avg + "%";
-
-        // Apply same color logic
         let color = "#ff3b3b";
-        if (avg < 20) color = "#ff3b3b";
-        else if (avg < 40) color = "#f79046ff";
-        else if (avg < 60) color = "#f7bf46ff";
-        else if (avg < 80) color = "#daf746ff";
-        else if (avg < 99) color = "#63de4aff";
-        else if (avg >= 99) color = "#36ff54ff";
+        if (percent < 20) color = "#ff3b3b";
+        else if (percent < 40) color = "#f79046ff";
+        else if (percent < 60) color = "#f7bf46ff";
+        else if (percent < 80) color = "#daf746ff";
+        else if (percent < 99) color = "#63de4aff";
+        else color = "#36ff54ff";
 
         inner.style.backgroundColor = color;
 
-        if (avg >= 99) {
-            outer.classList.add("pulse-glow");
-        } else {
-            outer.classList.remove("pulse-glow");
+        if (percent >= 99) outer.classList.add("pulse-glow");
+        else outer.classList.remove("pulse-glow");
+    }
+    
+    if (userProgress["a1_marathon"] !== undefined) {
+
+        const marathonOuter = document.querySelector(".progress-a1_marathon");
+        const inner = marathonOuter?.querySelector(".progress-inner");
+
+        if (inner) {
+            const percent = userProgress["a1_marathon"];
+            inner.style.width = percent + "%";
+
+            let color = "#ff3b3b";
+            if (percent < 20) color = "#ff3b3b";
+            else if (percent < 40) color = "#f79046ff";
+            else if (percent < 60) color = "#f7bf46ff";
+            else if (percent < 80) color = "#daf746ff";
+            else if (percent < 99) color = "#63de4aff";
+            else color = "#36ff54ff";
+
+            inner.style.backgroundColor = color;
+
+            if (percent >= 99) marathonOuter.classList.add("pulse-glow");
+            else marathonOuter.classList.remove("pulse-glow");
         }
     }
 }
 
+
 window.addEventListener("load", () => {
     updateCategoryProgressBars();
 });
-
 
 function returnHome() {
 
@@ -335,8 +397,6 @@ pulseStyle.textContent = `
 `;
 document.head.appendChild(pulseStyle);
 
-
-
 // Quiz logic
 function startQuiz(words, category) {
 
@@ -356,6 +416,7 @@ function startQuiz(words, category) {
     activeTimers.push(timerInterval);
 
     // Reset UI
+    document.getElementById("quiz-back-button")?.classList.remove("hidden");
     document.getElementById("quiz-content").innerHTML = "";
     document.getElementById("progress-bar").style.width = "0%";
     document.getElementById("live-timer").textContent = "Time: 0m 0.0s";
@@ -363,7 +424,12 @@ function startQuiz(words, category) {
     function showQuestion() {
         const item = words[index];
 
-        const displayGerman = item.german.split("/").map(s => s.trim())[0];
+        let displayGerman = item.german.split("/").map(s => s.trim())[0];
+
+        if (quizMode === "de-to-en" && userSettings.plurals && item.plural) {
+            const pluralFirst = item.plural.split("/").map(s => s.trim())[0];
+            displayGerman += ` (${pluralFirst})`;
+        }
 
         document.getElementById("quiz-content").innerHTML = `
             <div class="bg-black/60 p-6 rounded-xl shadow text-center mb-4">
@@ -373,7 +439,7 @@ function startQuiz(words, category) {
 
                 <p class="text-yellow-300 text-3xl font-bold">
                     ${quizMode === "de-to-en"
-                        ? item.german.split("/")[0].trim()
+                        ? displayGerman
                         : formatEnglishWithGender(item)
                     }
                 </p>
@@ -410,7 +476,7 @@ function startQuiz(words, category) {
             // Remove this delay entirely or increase it slightly
             if (now - lastTypeTime > 2) {
 
-                // Instead of reusing the same <audio>, CLONE it
+                // Instead of reusing the same <audio>, clone it
                 const original = document.getElementById("type-sound");
                 const clone = original.cloneNode(true);
 
@@ -517,22 +583,50 @@ function startQuiz(words, category) {
             isCorrect = correctList.includes(userInput);
         }
 
+        // Play correct sound using clone
+        function playCorrectSound() {
+            const original = document.getElementById("correct-sound");
+            if (!original) return;
+
+            const clone = original.cloneNode(true);
+            clone.volume = original.volume;
+
+            if (window.userSettings?.sound) clone.play();
+
+            // remove from DOM after sound ends
+            clone.onended = () => clone.remove();
+        }
+
+        // Play wrong sound using clone
+        function playWrongSound() {
+            const original = document.getElementById("wrong-sound");
+            if (!original) return;
+
+            const clone = original.cloneNode(true);
+            clone.volume = original.volume;
+
+            if (window.userSettings?.sound) clone.play();
+
+            clone.onended = () => clone.remove();
+        }
+
         // Apply styling + sounds
         if (isCorrect) {
             answer.style.color = "#36ff54ff";
             answer.style.caretColor = "#36ff54ff";
             answer.style.boxShadow = "0 0 0 2px #36ff54ff inset";
-            if (window.userSettings?.sound) {
-                document.getElementById("correct-sound").play();
-            }
+
+            playCorrectSound(); 
+
             score++;
+
         } else {
             answer.style.color = "#ff1515ff";
             answer.style.caretColor = "#ff1515ff";
             answer.style.boxShadow = "0 0 0 2px #ff1515ff inset";
-            if (window.userSettings?.sound) {
-                document.getElementById("wrong-sound").play();
-            }
+            
+            playWrongSound();
+
             answer.value = correctList[0];
 
             // Save failed word to backend
@@ -543,7 +637,8 @@ function startQuiz(words, category) {
                     category: category,
                     word: words[index].german,
                     english: words[index].english,
-                    gender: words[index].gender || null
+                    gender: words[index].gender || null,
+                    plural: words[index].plural || null
                 })
             });
         }

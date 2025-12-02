@@ -12,7 +12,6 @@
     {"german": "zehn", "english": "ten", "example": "Ich zähle bis zehn."},
     {"german": "elf", "english": "eleven", "example": "Ich sehe elf Sterne."},
     {"german": "zwölf", "english": "twelve", "example": "Wir sind zwölf Personen."},
-
     {"german": "dreizehn", "english": "thirteen", "example": "Ich bin dreizehn Jahre alt."},
     {"german": "vierzehn", "english": "fourteen", "example": "Er ist vierzehn."},
     {"german": "fünfzehn", "english": "fifteen", "example": "Sie ist fünfzehn Jahre alt."},
@@ -20,7 +19,6 @@
     {"german": "siebzehn", "english": "seventeen", "example": "Er ist siebzehn."},
     {"german": "achtzehn", "english": "eighteen", "example": "Ich bin achtzehn."},
     {"german": "neunzehn", "english": "nineteen", "example": "Wir sind neunzehn Schüler."},
-
     {"german": "zwanzig", "english": "twenty", "example": "Ich habe zwanzig Euro."},
     {"german": "dreißig", "english": "thirty", "example": "Das kostet dreißig Euro."},
     {"german": "vierzig", "english": "forty", "example": "Er ist vierzig Jahre alt."},
@@ -29,12 +27,10 @@
     {"german": "siebzig", "english": "seventy", "example": "Sie ist siebzig."},
     {"german": "achtzig", "english": "eighty", "example": "Die Stadt ist achtzig Kilometer entfernt."},
     {"german": "neunzig", "english": "ninety", "example": "Es sind neunzig Schüler."},
-
     {"german": "hundert / einhundert", "english": "one hundred", "example": "Hundert Menschen sind da."},
     {"german": "zweihundert", "english": "two hundred", "example": "Das kostet zweihundert Euro."},
     {"german": "dreihundert", "english": "three hundred", "example": "Es sind dreihundert Autos."},
     {"german": "vierhundert", "english": "four hundred", "example": "Vierhundert Leute feiern."},
     {"german": "fünfhundert", "english": "five hundred", "example": "Das Gebäude ist fünfhundert Jahre alt."},
-
     {"german": "tausend / eintausend", "english": "one thousand", "example": "Tausend Menschen leben hier."}
 ]

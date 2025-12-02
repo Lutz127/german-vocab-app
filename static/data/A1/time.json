@@ -6,7 +6,6 @@
     {"german": "Freitag", "english": "Friday", "example": "Freitag ist mein Lieblingstag."},
     {"german": "Samstag", "english": "Saturday", "example": "Samstag kaufe ich ein."},
     {"german": "Sonntag", "english": "Sunday", "example": "Sonntag ruhe ich mich aus."},
-
     {"german": "Januar", "english": "January", "example": "Der Januar ist kalt."},
     {"german": "Februar", "english": "February", "example": "Im Februar schneit es oft."},
     {"german": "März", "english": "March", "example": "Der März bringt Frühling."},
@@ -19,19 +18,16 @@
     {"german": "Oktober", "english": "October", "example": "Im Oktober fallen die Blätter."},
     {"german": "November", "english": "November", "example": "Der November ist dunkel."},
     {"german": "Dezember", "english": "December", "example": "Dezember ist der Weihnachtsmonat."},
-
     {"german": "Frühling", "english": "spring", "example": "Im Frühling wird es wärmer."},
     {"german": "Sommer", "english": "summer", "example": "Der Sommer ist sonnig."},
     {"german": "Herbst", "english": "autumn", "example": "Im Herbst wird es kühl."},
     {"german": "Winter", "english": "winter", "example": "Der Winter ist kalt."},
-
     {"german": "heute", "english": "today", "example": "Heute ist schönes Wetter."},
     {"german": "morgen", "english": "tomorrow", "example": "Morgen habe ich frei."},
     {"german": "gestern", "english": "yesterday", "example": "Gestern war ein langer Tag."},
     {"german": "jetzt", "english": "now", "example": "Ich mache das jetzt."},
     {"german": "bald", "english": "soon", "example": "Wir sehen uns bald."},
     {"german": "später", "english": "later", "example": "Wir sprechen später."},
-
     {"german": "Sekunde", "plural": "Sekunden", "english": "second", "example": "Eine Sekunde, bitte."},
     {"german": "Stunde", "plural": "Stunden", "english": "hour", "example": "Ich warte seit einer Stunde."},
     {"german": "Minute", "plural": "Minuten", "english": "minute", "example": "Ich brauche eine Minute."}

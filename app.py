@@ -23,6 +23,8 @@ def allowed_file(filename):
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_PERMANENT"] = True
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=30)
 
 def execute(db, query, params=()):
     """Automatically choose placeholder style depending on DB engine."""
@@ -207,10 +209,6 @@ def a1_adjectives():
 def marathon():
     return render_template("a1_marathon.html")
 
-@app.route("/presentation")
-def cs50thing():
-    return render_template("presentation.html")
-
 @app.route("/api/progress")
 def api_progress():
     if "user_id" not in session:
@@ -303,6 +301,8 @@ def login():
         if not user or not check_password_hash(user["hash"], password):
             flash("Invalid username or password")
             return redirect("/login")
+
+        session.permanent = True
 
         session["user_id"] = user["id"]
         session["username"] = user["username"]
@@ -688,7 +688,6 @@ def settings():
         if theme != "custom":
             custom_color = None
 
-        # INSERT or UPDATE
         execute(db, """
             INSERT INTO user_settings (user_id, theme, sound_enabled, custom_color, speedrun_enabled, strict_articles, show_examples, plurals)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
@@ -707,7 +706,6 @@ def settings():
         flash("Settings updated!")
         return redirect("/settings")
 
-    # GET
     settings_data = execute(db,
         "SELECT * FROM user_settings WHERE user_id = %s",
         (session["user_id"],)

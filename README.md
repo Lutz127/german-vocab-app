@@ -445,6 +445,12 @@ This required splitting answers, trimming whitespace, normalizing case, and chec
 
 ## Update Changelog
 
+### v1.4.1 (December 2nd 2025)
+
+- Fixed login persistence bug, users now stay logged in after restarting computer
+
+- Improved session cookie configuration (30-day persistent secure cookies)
+
 ### v1.4 (December 2nd 2025)
 
 - Fixed category progress bars

@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Load each file
         for (const cat of categories) {
             try {
-                const res = await fetch(`/static/data/a1/${cat}.json`);
+                const res = await fetch(`/static/data/A1/${cat}.json`);
                 if (!res.ok) continue;
 
                 const data = await res.json();

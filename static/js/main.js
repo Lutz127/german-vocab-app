@@ -174,7 +174,7 @@ const categoryGroups = {
     a1_cat_basics: [
         "colors",
         "numbers",
-        "time",
+        "time_dates",
         "countries_languages",
         "directions",
         "basic_phrases",

@@ -27,10 +27,10 @@
     {"german": "siebzig", "english": "seventy", "example": "Sie ist siebzig."},
     {"german": "achtzig", "english": "eighty", "example": "Die Stadt ist achtzig Kilometer entfernt."},
     {"german": "neunzig", "english": "ninety", "example": "Es sind neunzig Schüler."},
-    {"german": "hundert / einhundert", "english": "one hundred", "example": "Hundert Menschen sind da."},
+    {"german": "hundert / einhundert", "english": "hundred / one hundred", "example": "Hundert Menschen sind da."},
     {"german": "zweihundert", "english": "two hundred", "example": "Das kostet zweihundert Euro."},
     {"german": "dreihundert", "english": "three hundred", "example": "Es sind dreihundert Autos."},
     {"german": "vierhundert", "english": "four hundred", "example": "Vierhundert Leute feiern."},
     {"german": "fünfhundert", "english": "five hundred", "example": "Das Gebäude ist fünfhundert Jahre alt."},
-    {"german": "tausend / eintausend", "english": "one thousand", "example": "Tausend Menschen leben hier."}
+    {"german": "tausend / eintausend", "english": "thousand / one thousand", "example": "Tausend Menschen leben hier."}
 ]

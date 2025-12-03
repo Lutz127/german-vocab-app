@@ -3,11 +3,11 @@
     {"german": "Guten Morgen", "english": "good morning", "example": "Guten Morgen! Hast du gut geschlafen?"},
     {"german": "Guten Tag", "english": "good day", "example": "Guten Tag! Kann ich Ihnen helfen?"},
     {"german": "Guten Abend", "english": "good evening", "example": "Guten Abend! Wie war dein Tag?"},
-    {"german": "Tschüss", "english": "bye", "example": "Tschüss! Bis morgen."},
+    {"german": "Tschüss / Ciao", "english": "bye", "example": "Tschüss! Bis morgen."},
     {"german": "Auf Wiedersehen", "english": "goodbye", "example": "Auf Wiedersehen und einen schönen Tag!"},
     {"german": "Bitte", "english": "please", "example": "Eine Cola, bitte."},
     {"german": "Danke", "english": "thank you", "example": "Danke für deine Hilfe."},
-    {"german": "Vielen Dank", "english": "thank you very much", "example": "Vielen Dank für das Geschenk!"},
+    {"german": "Vielen Dank / Danke schön / Danke sehr", "english": "thank you very much", "example": "Vielen Dank für das Geschenk!"},
     {"german": "Entschuldigung", "english": "excuse me / sorry", "example": "Entschuldigung, wo ist die Toilette?"},
     {"german": "Wie geht's?", "english": "how are you?", "example": "Hallo! Wie geht's dir heute?"},
     {"german": "Gut, danke", "english": "good, thanks", "example": "Mir geht's gut, danke."},
@@ -15,6 +15,6 @@
     {"german": "Ich weiß nicht", "english": "I don't know", "example": "Ich weiß nicht, wo er ist."},
     {"german": "Bitte wiederholen", "english": "please repeat", "example": "Können Sie das bitte wiederholen?"},
     {"german": "Wie heißt du?", "english": "what's your name?", "example": "Wie heißt du eigentlich?"},
-    {"german": "Ich heiße...", "english": "my name is...", "example": "Ich heiße Anna."},
-    {"german": "Ich komme aus...", "english": "I come from...", "example": "Ich komme aus Spanien."}
+    {"german": "Ich heiße / Mein Name ist", "english": "my name is", "example": "Ich heiße Anna."},
+    {"german": "Ich komme aus", "english": "I come from", "example": "Ich komme aus Spanien."}
 ]

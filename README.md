@@ -445,6 +445,14 @@ This required splitting answers, trimming whitespace, normalizing case, and chec
 
 ## Update Changelog
 
+### v1.4.2 (December 3rd 2025)
+
+- Fixed "Time & Dates" quiz being bugged in userProgress
+
+- Added missing synonyms to quizzes inside main category "Basics"
+
+- Moved clear best scores and clear best time to the top instead of bottom
+
 ### v1.4.1 (December 2nd 2025)
 
 - Fixed login persistence bug, users now stay logged in after restarting computer
@@ -510,7 +518,7 @@ All final decisions, architecture, and code were written and implemented by me.
 
 ## Acknowledgements
 
-A huge thank you to **Luma** and **ivi** who helped test the app, report bugs, and give feedback during development.
+A huge thank you to **Luma**, **ivi** and **Gabrielaso** who helped test the app, report bugs, and give feedback during development.
 
 ## Final Thoughts
 

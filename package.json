@@ -4,7 +4,9 @@
   "description": "**German Vocabulary App** is my CS50 Final Project: a full-stack, gamified learning platform built with Python (Flask), JavaScript, TailwindCSS, and PostgreSQL/SQLite. The goal of the project is to make learning German vocabulary feel interactive, rewarding, and competitive, more like playing a game rather than studying from a static list.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tailwindcss -i ./static/css/tailwind.css -o ./static/css/main.css --minify",
+    "watch": "npx tailwindcss -i ./static/css/tailwind.css -o ./static/css/main.css --watch"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,10 @@
   },
   "homepage": "https://github.com/Lutz127/german-vocab-app#readme",
   "devDependencies": {
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.13"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6"
   }
 }

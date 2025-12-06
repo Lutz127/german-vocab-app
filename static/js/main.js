@@ -439,6 +439,18 @@ function formatTime(seconds) {
     return `${m}m ${s}s`;
 }
 
+function normalizeEnglish(str) {
+    let s = str.trim().toLowerCase();
+
+    if (s.startsWith("the ")) {
+        s = s.slice(4);
+    }
+
+    s = s.replace(/\?/g, "").replace(/\(.*?\)/g, "");
+
+    return s;
+}
+
 // Quiz logic
 function startQuiz(words, category) {
 
@@ -664,7 +676,10 @@ function startQuiz(words, category) {
                 }
             }
         } else {
-            isCorrect = correctList.includes(userInput);
+            const normalizedUser = normalizeEnglish(userInput);
+            const normalizedCorrect = correctList.map(c => normalizeEnglish(c));
+
+            isCorrect = normalizedCorrect.includes(normalizedUser);
         }
 
         // Play correct sound using clone

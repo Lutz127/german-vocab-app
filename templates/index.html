@@ -110,17 +110,20 @@ A1 Categories | VokabelMeister
             </div>
         </a>
 
-        <!-- Review Mistakes -->
+        <!-- Failed Words -->
         <a 
             id="failed-words-card"
             data-category="failed_words"
-            class="category-card relative flex items-center justify-center 
+            class="category-card relative flex flex-col items-center justify-center 
                 bg-black/70 shadow rounded-xl p-5 overflow-hidden
                 hover:shadow-xl hover:scale-[1.05] transition cursor-pointer select-none">
 
             <h2 class="text-3xl font-semibold text-white text-center">Failed Words</h2>
-        </a>
 
+            {% if not session.get('user_id') %}
+                <p class="text-yellow-300 text-sm opacity-80 mt-2">Create an account to track progress!</p>
+            {% endif %}
+        </a>
 
         <!-- Marathon -->
         <a href="/a1/marathon"

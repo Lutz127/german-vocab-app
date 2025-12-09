@@ -1,5 +1,5 @@
 [
-    {"german": "die Stadt", "plural": "die Städte", "english": "city", "example": "Die Stadt ist sehr groß."},
+    {"german": "die Stadt", "plural": "die Städte", "english": "city / town", "example": "Die Stadt ist sehr groß."},
     {"german": "das Dorf", "plural": "die Dörfer", "english": "village", "example": "Das Dorf ist ruhig."},
     {"german": "der Park", "plural": "die Parks", "english": "park", "example": "Wir gehen heute in den Park."},
     {"german": "die Bank", "plural": "die Banken", "english": "bank", "example": "Die Bank schließt um 16 Uhr."},
@@ -8,14 +8,14 @@
     {"german": "das Krankenhaus / die Klinik", "plural": "die Krankenhäuser / die Kliniken", "english": "hospital / clinic", "example": "Er arbeitet im Krankenhaus."},
     {"german": "die Bibliothek / die Bücherei", "plural": "die Bibliotheken / die Büchereien", "english": "library", "example": "Ich lerne in der Bibliothek."},
     {"german": "das Restaurant / das Lokal", "plural": "die Restaurants / die Lokale", "english": "restaurant", "example": "Wir essen im Restaurant."},
-    {"german": "das Café", "plural": "die Cafés", "english": "cafe", "example": "Wir treffen uns im Café."},
+    {"german": "das Café / der Kaffeeshop", "plural": "die Cafés / die Kaffeeshops", "english": "cafe / coffee shop", "example": "Wir treffen uns im Café."},
     {"german": "die Bäckerei", "plural": "die Bäckereien", "english": "bakery", "example": "Die Bäckerei hat frisches Brot."},
-    {"german": "die Metzgerei / die Fleischerei", "plural": "die Metzgereien / die Fleischereien", "english": "butcher shop", "example": "Ich kaufe Fleisch in der Metzgerei."},
+    {"german": "die Metzgerei / die Fleischerei", "plural": "die Metzgereien / die Fleischereien", "english": "butcher shop / butcher", "example": "Ich kaufe Fleisch in der Metzgerei."},
     {"german": "das Hotel", "plural": "die Hotels", "english": "hotel", "example": "Das Hotel ist sehr modern."},
-    {"german": "das Kino", "plural": "die Kinos", "english": "cinema", "example": "Wir gehen heute ins Kino."},
+    {"german": "das Kino", "plural": "die Kinos", "english": "cinema / theatre / theater / movie theater", "example": "Wir gehen heute ins Kino."},
     {"german": "das Museum", "plural": "die Museen", "english": "museum", "example": "Das Museum hat interessante Ausstellungen."},
     {"german": "das Schwimmbad", "plural": "die Schwimmbäder", "english": "swimming pool", "example": "Ich gehe gern ins Schwimmbad."},
     {"german": "die Schule", "plural": "die Schulen", "english": "school", "example": "Die Schule beginnt um acht Uhr."},
-    {"german": "die Polizei", "plural": "die Polizeien", "english": "police station", "example": "Die Polizei hilft den Leuten."},
+    {"german": "die Polizei", "plural": "die Polizeien", "english": "police station / police", "example": "Die Polizei hilft den Leuten."},
     {"german": "die Kirche", "plural": "die Kirchen", "english": "church", "example": "Die Kirche ist sehr alt."}
 ]

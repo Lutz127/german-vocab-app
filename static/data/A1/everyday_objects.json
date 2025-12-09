@@ -1,17 +1,17 @@
 [
     {"german": "der Schlüssel", "plural": "die Schlüssel", "english": "key", "example": "Ich finde meinen Schlüssel nicht."},
-    {"german": "das Handy / das Mobiltelefon", "plural": "die Handys / die Mobiltelefone", "english": "mobile phone", "example": "Mein Handy ist neu."},
-    {"german": "der Computer / der PC", "plural": "die Computer / die PCs", "english": "computer / PC", "example": "Der Computer ist schnell."},
-    {"german": "die Uhr", "plural": "die Uhren", "english": "clock / watch", "example": "Meine Uhr ist kaputt."},
+    {"german": "das Handy / das Mobiltelefon", "plural": "die Handys / die Mobiltelefone", "english": "mobile phone / cell phone / phone / smartphone", "example": "Mein Handy ist neu."},
+    {"german": "der Computer / der PC", "plural": "die Computer / die PCs", "english": "computer / PC / desktop / laptop", "example": "Der Computer ist schnell."},
+    {"german": "die Uhr", "plural": "die Uhren", "english": "clock / watch / wristwatch", "example": "Meine Uhr ist kaputt."},
     {"german": "die Brille", "plural": "die Brillen", "english": "glasses", "example": "Ich brauche meine Brille zum Lesen."},
-    {"german": "die Tasche / die Handtasche", "plural": "die Taschen / die Handtaschen", "english": "bag / handbag", "example": "Meine Tasche ist schwer."},
-    {"german": "die Geldbörse / das Portemonnaie", "plural": "die Geldbörsen / die Portemonnaies", "english": "wallet / purse", "example": "Ich habe meine Geldbörse vergessen."},
-    {"german": "das Papier", "plural": "die Papiere", "english": "paper", "example": "Ich brauche mehr Papier."},
+    {"german": "die Tasche / die Handtasche", "plural": "die Taschen / die Handtaschen", "english": "bag / handbag / purse", "example": "Meine Tasche ist schwer."},
+    {"german": "die Geldbörse / das Portemonnaie", "plural": "die Geldbörsen / die Portemonnaies", "english": "wallet / purse / billfold", "example": "Ich habe meine Geldbörse vergessen."},
+    {"german": "das Papier", "plural": "die Papiere", "english": "paper / sheet", "example": "Ich brauche mehr Papier."},
     {"german": "das Buch", "plural": "die Bücher", "english": "book", "example": "Das Buch ist interessant."},
-    {"german": "das Notizbuch / das Heft", "plural": "die Notizbücher / die Hefte", "english": "notebook", "example": "Ich schreibe in mein Notizbuch."},
-    {"german": "der Stift / der Kugelschreiber", "plural": "die Stifte / die Kugelschreiber", "english": "pen", "example": "Ich habe keinen Stift."},
+    {"german": "das Notizbuch / das Heft", "plural": "die Notizbücher / die Hefte", "english": "notebook / notepad", "example": "Ich schreibe in mein Notizbuch."},
+    {"german": "der Stift / der Kugelschreiber", "plural": "die Stifte / die Kugelschreiber", "english": "pen / biro", "example": "Ich habe keinen Stift."},
     {"german": "der Bleistift", "plural": "die Bleistifte", "english": "pencil", "example": "Der Bleistift ist spitz."},
-    {"german": "die Flasche", "plural": "die Flaschen", "english": "bottle", "example": "Die Flasche ist voll."},
-    {"german": "die Tasche / der Beutel", "plural": "die Taschen / die Beutel", "english": "bag / pouch", "example": "Ich nehme einen Beutel mit."},
-    {"german": "das Foto / das Bild", "plural": "die Fotos / die Bilder", "english": "photo / picture", "example": "Das Foto ist schön."}
+    {"german": "die Flasche", "plural": "die Flaschen", "english": "bottle / water bottle", "example": "Die Flasche ist voll."},
+    {"german": "die Tasche / der Beutel", "plural": "die Taschen / die Beutel", "english": "bag / pouch / sack", "example": "Ich nehme einen Beutel mit."},
+    {"german": "das Foto / das Bild", "plural": "die Fotos / die Bilder", "english": "photo / picture / image / snapshot", "example": "Das Foto ist schön."}
 ]

@@ -1,6 +1,6 @@
 [
     {"german": "der Sport", "plural": "die Sportarten", "english": "sport / exercise", "example": "Ich mache gern Sport."},
-    {"german": "das Hobby", "plural": "die Hobbys", "english": "hobby", "example": "Mein Hobby ist Musik."},
+    {"german": "das Hobby", "plural": "die Hobbys", "english": "hobby  / pastime", "example": "Mein Hobby ist Musik."},
     {"german": "lesen", "english": "to read", "example": "Ich lese ein Buch."},
     {"german": "schreiben", "english": "to write", "example": "Ich schreibe jeden Tag."},
     {"german": "schwimmen", "english": "to swim", "example": "Ich schwimme im Sommer gern."},
@@ -9,13 +9,13 @@
     {"german": "kochen", "english": "to cook", "example": "Ich koche gern Pasta."},
     {"german": "spielen", "english": "to play", "example": "Wir spielen zusammen."},
     {"german": "Fußball spielen", "english": "to play football / to play soccer", "example": "Er spielt Fußball im Verein."},
-    {"german": "Gitarre spielen", "english": "to play guitar", "example": "Ich spiele Gitarre."},
+    {"german": "Gitarre spielen", "english": "to play guitar / to play the guitar", "example": "Ich spiele Gitarre."},
     {"german": "Musik hören", "english": "to listen to music", "example": "Ich höre Musik beim Lernen."},
-    {"german": "fernsehen / TV schauen", "english": "to watch TV", "example": "Ich sehe abends fern."},
-    {"german": "ins Kino gehen", "english": "to go to the cinema", "example": "Wir gehen ins Kino."},
-    {"german": "spazieren gehen", "english": "to go for a walk", "example": "Ich gehe im Park spazieren."},
-    {"german": "reisen / verreisen", "english": "to travel", "example": "Ich reise gern im Sommer."},
+    {"german": "fernsehen / TV schauen", "english": "to watch TV / to watch television", "example": "Ich sehe abends fern."},
+    {"german": "ins Kino gehen", "english": "to go to the cinema / to go to the movies", "example": "Wir gehen ins Kino."},
+    {"german": "spazieren gehen", "english": "to go for a walk / to take a walk / to go walking", "example": "Ich gehe im Park spazieren."},
+    {"german": "reisen / verreisen", "english": "to travel / to go on a trip / to go travelling", "example": "Ich reise gern im Sommer."},
     {"german": "zeichnen", "english": "to draw", "example": "Ich zeichne ein Haus."},
     {"german": "malen", "english": "to paint", "example": "Sie malt ein Bild."},
-    {"german": "fotografieren", "english": "to take photos", "example": "Er fotografiert viel."}
+    {"german": "fotografieren", "english": "to take photos / to photograph / to take pictures", "example": "Er fotografiert viel."}
 ]

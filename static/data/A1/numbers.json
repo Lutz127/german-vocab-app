@@ -1,6 +1,6 @@
 [
     {"german": "null", "english": "zero / 0", "example": "Die Zahl ist null."},
-    {"german": "eins", "english": "one / 1", "example": "Ich habe eins."},
+    {"german": "eins", "english": "one / 1 / a / an", "example": "Ich habe eins."},
     {"german": "zwei", "english": "two / 2", "example": "Ich habe zwei Bücher."},
     {"german": "drei", "english": "three / 3", "example": "Ich sehe drei Hunde."},
     {"german": "vier", "english": "four / 4", "example": "Ich habe vier Stifte."},
@@ -27,10 +27,10 @@
     {"german": "siebzig", "english": "seventy / 70", "example": "Sie ist siebzig."},
     {"german": "achtzig", "english": "eighty / 80", "example": "Die Stadt ist achtzig Kilometer entfernt."},
     {"german": "neunzig", "english": "ninety / 90", "example": "Es sind neunzig Schüler."},
-    {"german": "hundert / einhundert", "english": "hundred / one hundred / 100", "example": "Hundert Menschen sind da."},
+    {"german": "hundert / einhundert", "english": "hundred / one hundred / 100 / a hundred", "example": "Hundert Menschen sind da."},
     {"german": "zweihundert", "english": "two hundred / 200", "example": "Das kostet zweihundert Euro."},
     {"german": "dreihundert", "english": "three hundred / 300", "example": "Es sind dreihundert Autos."},
     {"german": "vierhundert", "english": "four hundred / 400", "example": "Vierhundert Leute feiern."},
     {"german": "fünfhundert", "english": "five hundred / 500", "example": "Das Gebäude ist fünfhundert Jahre alt."},
-    {"german": "tausend / eintausend", "english": "thousand / one thousand / 1000", "example": "Tausend Menschen leben hier."}
+    {"german": "tausend / eintausend", "english": "thousand / one thousand / 1000 / a thousand", "example": "Tausend Menschen leben hier."}
 ]

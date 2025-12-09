@@ -4,9 +4,9 @@
     {"german": "das Puzzle", "plural": "die Puzzles", "english": "puzzle", "example": "Das Puzzle ist schwierig."},
     {"german": "der Teddy / der Teddybär", "plural": "die Teddys / die Teddybären", "english": "teddy bear", "example": "Der Teddy ist weich."},
     {"german": "die Puppe", "plural": "die Puppen", "english": "doll", "example": "Die Puppe ist schön."},
-    {"german": "das Auto / das Spielzeugauto", "plural": "die Autos / die Spielzeugautos", "english": "toy car", "example": "Das Auto fährt schnell."},
-    {"german": "der Bauklotz / der Legostein", "plural": "die Bauklötze / die Legosteine", "english": "building block", "example": "Ich spiele mit Bauklötzen."},
-    {"german": "der Würfel", "plural": "die Würfel", "english": "dice / cube", "example": "Der Würfel zeigt eine sechs."},
+    {"german": "das Spielzeugauto / das Auto", "plural": "die Spielzeugautos / die Autos", "english": "toy car", "example": "Das Spielzeugauto fährt schnell."},
+    {"german": "der Bauklotz / der Legostein", "plural": "die Bauklötze / die Legosteine", "english": "building block / block / toy block", "example": "Ich spiele mit Bauklötzen."},
+    {"german": "der Würfel", "plural": "die Würfel", "english": "dice / cube / die / game die", "example": "Der Würfel zeigt eine sechs."},
     {"german": "das Brettspiel", "plural": "die Brettspiele", "english": "board game", "example": "Das Brettspiel macht Spaß."},
     {"german": "das Kartenspiel", "plural": "die Kartenspiele", "english": "card game", "example": "Wir spielen ein Kartenspiel."},
     {"german": "der Drachen", "plural": "die Drachen", "english": "kite", "example": "Der Drachen fliegt hoch."}

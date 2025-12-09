@@ -15,7 +15,7 @@
     {"german": "der Bär", "plural": "die Bären", "english": "bear", "example": "Der Bär schläft im Winter."},
     {"german": "der Löwe", "plural": "die Löwen", "english": "lion", "example": "Der Löwe ist sehr stark."},
     {"german": "der Tiger", "plural": "die Tiger", "english": "tiger", "example": "Der Tiger lebt im Dschungel."},
-    {"german": "der Affe", "plural": "die Affen", "english": "monkey", "example": "Der Affe klettert auf den Baum."},
+    {"german": "der Affe", "plural": "die Affen", "english": "monkey / ape", "example": "Der Affe klettert auf den Baum."},
     {"german": "der Hase / das Kaninchen", "plural": "die Hasen / die Kaninchen", "english": "rabbit", "example": "Der Hase springt sehr schnell."},
     {"german": "der Frosch", "plural": "die Frösche", "english": "frog", "example": "Der Frosch sitzt am Wasser."},
     {"german": "die Schlange", "plural": "die Schlangen", "english": "snake", "example": "Die Schlange bewegt sich leise."}

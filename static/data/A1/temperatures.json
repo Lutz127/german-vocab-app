@@ -1,7 +1,7 @@
 [
-    {"german": "kalt", "english": "cold", "example": "Es ist kalt draußen."},
+    {"german": "kalt", "english": "cold / chilly / cool", "example": "Es ist kalt draußen."},
     {"german": "warm", "english": "warm", "example": "Heute ist es warm."},
     {"german": "heiß", "english": "hot", "example": "Der Tee ist heiß."},
-    {"german": "kühl", "english": "cool", "example": "Der Abend ist kühl."},
-    {"german": "mild", "english": "mild", "example": "Das Wetter ist mild."}
+    {"german": "kühl", "english": "cool / chilly", "example": "Der Abend ist kühl."},
+    {"german": "mild", "english": "mild / pleasant", "example": "Das Wetter ist mild."}
 ]

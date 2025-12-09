@@ -4,8 +4,8 @@
     {"german": "salzig", "english": "salty", "example": "Die Suppe ist salzig."},
     {"german": "bitter", "english": "bitter", "example": "Der Kaffee ist bitter."},
     {"german": "scharf", "english": "spicy / hot", "example": "Das Essen ist scharf."},
-    {"german": "lecker / köstlich", "english": "tasty / delicious", "example": "Das Essen ist lecker."},
-    {"german": "fad / geschmacklos", "english": "bland / tasteless", "example": "Die Suppe schmeckt fad."},
+    {"german": "lecker / köstlich", "english": "tasty / delicious / yummy", "example": "Das Essen ist lecker."},
+    {"german": "fad / geschmacklos", "english": "bland / tasteless / plain", "example": "Die Suppe schmeckt fad."},
     {"german": "frisch", "english": "fresh", "example": "Das Brot ist frisch."},
     {"german": "reif", "english": "ripe", "example": "Die Banane ist reif."},
     {"german": "verdorben / schlecht", "english": "spoiled / bad", "example": "Die Milch ist verdorben."}

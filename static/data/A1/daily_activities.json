@@ -1,7 +1,7 @@
 [
-    {"german": "aufstehen", "english": "to get up", "example": "Ich stehe um sieben Uhr auf."},
-    {"german": "frühstücken", "english": "to eat breakfast", "example": "Ich frühstücke jeden Morgen."},
-    {"german": "essen / zu Mittag essen", "english": "to eat / to have lunch", "example": "Ich esse um zwölf Uhr zu Mittag."},
+    {"german": "aufstehen", "english": "to get up / to wake up", "example": "Ich stehe um sieben Uhr auf."},
+    {"german": "frühstücken", "english": "to eat breakfast / to have breakfast", "example": "Ich frühstücke jeden Morgen."},
+    {"german": "essen / zu Mittag essen", "english": "to eat / to have lunch / to grab lunch", "example": "Ich esse um zwölf Uhr zu Mittag."},
     {"german": "trinken", "english": "to drink", "example": "Ich trinke Wasser."},
     {"german": "kochen", "english": "to cook", "example": "Ich koche das Abendessen."},
     {"german": "putzen / sauber machen", "english": "to clean", "example": "Ich putze mein Zimmer."},
@@ -9,13 +9,13 @@
     {"german": "duschen", "english": "to shower / to take a shower", "example": "Ich dusche am Morgen."},
     {"german": "einschlafen / schlafen", "english": "to fall asleep / to sleep", "example": "Ich schlafe um zehn Uhr ein."},
     {"german": "arbeiten / jobben", "english": "to work", "example": "Ich arbeite im Büro."},
-    {"german": "üben / lernen", "english": "to practice / to study", "example": "Ich muss jeden Tag Deutsch üben."},
-    {"german": "spielen", "english": "to play", "example": "Ich spiele Fußball."},
+    {"german": "üben / lernen", "english": "to practice / to study / to review", "example": "Ich muss jeden Tag Deutsch üben."},
+    {"german": "spielen", "english": "to play / to participate", "example": "Ich spiele Fußball."},
     {"german": "fernsehen / TV schauen", "english": "to watch TV", "example": "Ich sehe abends fern."},
     {"german": "lesen", "english": "to read", "example": "Ich lese ein Buch."},
     {"german": "schreiben", "english": "to write", "example": "Ich schreibe eine E-Mail."},
-    {"german": "spazieren gehen", "english": "to go for a walk", "example": "Ich gehe im Park spazieren."},
-    {"german": "einkaufen", "english": "to shop / to buy groceries", "example": "Ich gehe am Samstag einkaufen."},
-    {"german": "anrufen / telefonieren", "english": "to call / to phone", "example": "Ich rufe meine Mutter an."},
-    {"german": "sich ausruhen / relaxen", "english": "to rest / to relax", "example": "Ich ruhe mich nach der Arbeit aus."}
+    {"german": "spazieren gehen", "english": "to go for a walk / to take a walk / to go walking", "example": "Ich gehe im Park spazieren."},
+    {"german": "einkaufen", "english": "to shop / to buy groceries / to go shopping / to do the shopping", "example": "Ich gehe am Samstag einkaufen."},
+    {"german": "anrufen / telefonieren", "english": "to call / to phone / to phone someone", "example": "Ich rufe meine Mutter an."},
+    {"german": "sich ausruhen / relaxen", "english": "to rest / to relax / to take a break / to unwind", "example": "Ich ruhe mich nach der Arbeit aus."}
 ]

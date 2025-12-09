@@ -11,9 +11,9 @@
     {"german": "rosa / pink", "english": "pink", "example": "Das Kleid ist rosa."},
     {"german": "lila / violett", "english": "purple", "example": "Die Blume ist lila."},
     {"german": "beige", "english": "beige", "example": "Die Wand ist beige."},
-    {"german": "gold", "english": "gold", "example": "Die Uhr ist gold."},
+    {"german": "gold", "english": "gold / golden", "example": "Die Uhr ist gold."},
     {"german": "silber", "english": "silver", "example": "Der Ring ist silber."},
-    {"german": "türkis", "english": "turquoise", "example": "Das Meer ist türkis."},
+    {"german": "türkis", "english": "turquoise / teal", "example": "Das Meer ist türkis."},
     {"german": "hellblau", "english": "light blue", "example": "Das Hemd ist hellblau."},
     {"german": "dunkelgrün", "english": "dark green", "example": "Der Mantel ist dunkelgrün."},
     {"german": "hellbraun", "english": "light brown", "example": "Der Hund ist hellbraun."}

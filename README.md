@@ -1,10 +1,10 @@
-# German Vocabulary App
+# VokabelMeister
 
-### This project is fully deployed at: https://german-vocab-app.onrender.com/
+### This project is fully deployed at: https://vokabelmeister.com/
 
 ## Description:
 
-**German Vocabulary App** is my CS50 Final Project: a full-stack, gamified learning platform built with Python (Flask), JavaScript, TailwindCSS, and PostgreSQL/SQLite. The goal of the project is to make learning German vocabulary feel interactive, rewarding, and competitive, more like playing a game rather than studying from a static list.
+**VokabelMeister** is my CS50 Final Project: a full-stack, gamified learning platform built with Python (Flask), JavaScript, TailwindCSS, and PostgreSQL/SQLite. The goal of the project is to make learning German vocabulary feel interactive, rewarding, and competitive, more like playing a game rather than studying from a static list.
 
 This README describes how the application works, how the code is organized, and the design decisions that shaped the final result.
 
@@ -442,6 +442,10 @@ This required splitting answers, trimming whitespace, normalizing case, and chec
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/14592b4c-8965-4770-9ba9-9189d7975e2a" />
 
 ## Update Changelog
+
+### v1.5.3 (December 9th 2025)
+
+- Major synonym improvements on all A1 vocabulary quizzes
 
 ### v1.5.2 (December 6th 2025)
 

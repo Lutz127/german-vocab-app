@@ -1,11 +1,11 @@
 [
-    {"german": "der Besen", "plural": "die Besen", "english": "broom", "example": "Der Besen steht in der Ecke."},
-    {"german": "der Müll / der Abfall", "plural": "die Müll / die Abfälle", "english": "trash / waste", "example": "Der Müll ist voll."},
-    {"german": "der Müllsack / der Abfallsack", "plural": "die Müllsäcke / die Abfallsäcke", "english": "trash bag", "example": "Ich brauche einen neuen Müllsack."},
-    {"german": "der Staubsauger", "plural": "die Staubsauger", "english": "vacuum cleaner", "example": "Der Staubsauger ist laut."},
-    {"german": "der Schwamm", "plural": "die Schwämme", "english": "sponge", "example": "Ich putze mit einem Schwamm."},
-    {"german": "das Geschirr", "plural": "die Geschirre", "english": "dishes", "example": "Das Geschirr ist schmutzig."},
-    {"german": "der Teller", "plural": "die Teller", "english": "plate", "example": "Der Teller ist weiß."},
+    {"german": "der Besen", "plural": "die Besen", "english": "broom / sweeper", "example": "Der Besen steht in der Ecke."},
+    {"german": "der Müll / der Abfall", "plural": "die Müll / die Abfälle", "english": "trash / waste / garbage / rubbish", "example": "Der Müll ist voll."},
+    {"german": "der Müllsack / der Abfallsack", "plural": "die Müllsäcke / die Abfallsäcke", "english": "trash bag / garbage bag / bin bag / rubbish bag", "example": "Ich brauche einen neuen Müllsack."},
+    {"german": "der Staubsauger", "plural": "die Staubsauger", "english": "vacuum cleaner / vacuum / hoover", "example": "Der Staubsauger ist laut."},
+    {"german": "der Schwamm", "plural": "die Schwämme", "english": "sponge / scrubber", "example": "Ich putze mit einem Schwamm."},
+    {"german": "das Geschirr", "plural": "die Geschirre", "english": "dishes / tableware", "example": "Das Geschirr ist schmutzig."},
+    {"german": "der Teller", "plural": "die Teller", "english": "plate / dish", "example": "Der Teller ist weiß."},
     {"german": "die Schüssel", "plural": "die Schüsseln", "english": "bowl", "example": "Ich esse Suppe aus einer Schüssel."},
     {"german": "die Tasse / der Becher", "plural": "die Tassen / die Becher", "english": "cup / mug", "example": "Die Tasse ist voll."},
     {"german": "das Glas", "plural": "die Gläser", "english": "glass", "example": "Das Glas ist leer."},
@@ -13,10 +13,10 @@
     {"german": "das Messer", "plural": "die Messer", "english": "knife", "example": "Das Messer ist scharf."},
     {"german": "der Löffel", "plural": "die Löffel", "english": "spoon", "example": "Ich esse mit einem Löffel."},
     {"german": "das Kissen", "plural": "die Kissen", "english": "pillow / cushion", "example": "Das Kissen ist weich."},
-    {"german": "die Decke", "plural": "die Decken", "english": "blanket", "example": "Die Decke ist warm."},
-    {"german": "der Vorhang", "plural": "die Vorhänge", "english": "curtain", "example": "Der Vorhang ist blau."},
+    {"german": "die Decke", "plural": "die Decken", "english": "blanket / cover / bed cover", "example": "Die Decke ist warm."},
+    {"german": "der Vorhang", "plural": "die Vorhänge", "english": "curtain / drapes / drape / window curtain", "example": "Der Vorhang ist blau."},
     {"german": "die Seife", "plural": "die Seifen", "english": "soap", "example": "Ich kaufe Seife."},
     {"german": "das Shampoo", "plural": "die Shampoos", "english": "shampoo", "example": "Das Shampoo riecht gut."},
-    {"german": "die Zahnbürste", "plural": "die Zahnbürsten", "english": "toothbrush", "example": "Ich habe eine neue Zahnbürste."},
-    {"german": "die Zahnpasta", "plural": "die Zahnpasten", "english": "toothpaste", "example": "Die Zahnpasta ist fast leer."}
+    {"german": "die Zahnbürste", "plural": "die Zahnbürsten", "english": "toothbrush / tooth brush", "example": "Ich habe eine neue Zahnbürste."},
+    {"german": "die Zahnpasta", "plural": "die Zahnpasten", "english": "toothpaste / tooth paste / tooth gel", "example": "Die Zahnpasta ist fast leer."}
 ]

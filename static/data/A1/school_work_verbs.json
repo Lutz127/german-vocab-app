@@ -2,10 +2,10 @@
     {"german": "lernen / studieren", "english": "to learn / to study", "example": "Ich lerne Deutsch."},
     {"german": "lesen", "english": "to read", "example": "Ich lese ein Buch."},
     {"german": "schreiben", "english": "to write", "example": "Ich schreibe einen Satz."},
-    {"german": "recherchieren / suchen", "english": "to research / to search", "example": "Ich recherchiere das Thema."},
-    {"german": "erklären", "english": "to explain", "example": "Der Lehrer erklärt die Übung."},
+    {"german": "recherchieren / suchen", "english": "to research / to search / to look up", "example": "Ich recherchiere das Thema."},
+    {"german": "erklären", "english": "to explain / to clarify", "example": "Der Lehrer erklärt die Übung."},
     {"german": "fragen", "english": "to ask", "example": "Ich frage eine Frage."},
-    {"german": "antworten", "english": "to answer", "example": "Der Schüler antwortet richtig."},
+    {"german": "antworten", "english": "to answer / to reply", "example": "Der Schüler antwortet richtig."},
     {"german": "arbeiten", "english": "to work", "example": "Ich arbeite im Büro."},
     {"german": "helfen / unterstützen", "english": "to help / to support", "example": "Ich helfe meinem Freund."},
     {"german": "organisieren", "english": "to organize", "example": "Wir organisieren ein Projekt."},
@@ -14,7 +14,7 @@
     {"german": "treffen", "english": "to meet", "example": "Ich treffe meine Kollegen."},
     {"german": "besuchen", "english": "to visit / to attend", "example": "Ich besuche einen Kurs."},
     {"german": "korrigieren", "english": "to correct", "example": "Der Lehrer korrigiert die Tests."},
-    {"german": "vorbereiten", "english": "to prepare", "example": "Ich bereite die Präsentation vor."},
-    {"german": "präsentieren", "english": "to present", "example": "Ich präsentiere mein Projekt."},
-    {"german": "arbeiten an", "english": "to work on", "example": "Ich arbeite an einem neuen Thema."}
+    {"german": "vorbereiten", "english": "to prepare / to get ready", "example": "Ich bereite die Präsentation vor."},
+    {"german": "präsentieren", "english": "to present / to show", "example": "Ich präsentiere mein Projekt."},
+    {"german": "arbeiten an", "english": "to work on / to develop", "example": "Ich arbeite an einem neuen Thema."}
 ]

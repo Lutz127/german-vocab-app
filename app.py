@@ -60,7 +60,6 @@ app.config["WTF_CSRF_ENABLED"] = True
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "fallback-secret")
 
 def execute(db, query, params=()):
-    """Automatically choose placeholder style depending on DB engine."""
     cur = db.cursor()
 
     if isinstance(db, sqlite3.Connection):
@@ -73,7 +72,6 @@ def execute(db, query, params=()):
     return cur
 
 def valid_username(username):
-    """Allow A-Z, a-z, 0-9, underscore, length 3–20."""
     return re.fullmatch(r"[A-Za-z0-9_]{3,20}", username) is not None
 
 def record_failed_attempt(username):
@@ -104,11 +102,6 @@ def get_db():
 
 
 def resolve_category_key(raw_cat):
-    """Resolve a raw category string (from client/DB) to a key present in
-    CATEGORY_SIZES. Handles variants like 'colors', 'a1_colors', 'A1_colors',
-    and is case-insensitive. Returns the matching key from CATEGORY_SIZES or
-    None if no match found.
-    """
     if not raw_cat:
         return None
 
@@ -748,14 +741,14 @@ def account():
 
     processed_stats = []
     for row in raw_stats:
-        raw_cat = row["category"]                         # "colors"
-        resolved = resolve_category_key(raw_cat) or raw_cat  # "A1_colors"
+        raw_cat = row["category"]
+        resolved = resolve_category_key(raw_cat) or raw_cat
 
         total_words = CATEGORY_SIZES.get(resolved, 0)
 
         processed_stats.append({
             "raw": raw_cat,
-            "category": resolved,                         # proper normalized key
+            "category": resolved,
             "best_score": row["best_score"],
             "best_time": row["best_time"],
             "total_words": total_words
@@ -959,7 +952,7 @@ def api_a1_files():
 
     for file in os.listdir(base):
         if file.endswith(".json"):
-            files.append(file[:-5])  # remove .json
+            files.append(file[:-5])
 
     return jsonify(files)
 
@@ -991,14 +984,14 @@ def public_profile(username):
     # Process stats
     processed_stats = []
     for row in raw_stats:
-        raw_cat = row["category"]                       # e.g. "colors"
-        resolved = resolve_category_key(raw_cat) or raw_cat  # e.g. "A1_colors"
+        raw_cat = row["category"]
+        resolved = resolve_category_key(raw_cat) or raw_cat
 
         total_words = CATEGORY_SIZES.get(resolved, 0)
 
         processed_stats.append({
-            "raw": raw_cat,             # what user answered in
-            "category": resolved,       # normalized for lookup
+            "raw": raw_cat,
+            "category": resolved,
             "best_score": row["best_score"],
             "best_time": row["best_time"],
             "total_words": total_words

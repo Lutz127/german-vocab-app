@@ -1,18 +1,18 @@
 [
     {"german": "links", "english": "left", "example": "Der Supermarkt ist links."},
     {"german": "rechts", "english": "right", "example": "Die Bank ist rechts."},
-    {"german": "geradeaus", "english": "straight ahead", "example": "Gehen Sie geradeaus."},
-    {"german": "zurück", "english": "back / backward", "example": "Geh ein Stück zurück."},
-    {"german": "oben", "english": "up / above", "example": "Die Treppe geht nach oben."},
-    {"german": "unten", "english": "below / under / down", "example": "Der Ausgang ist nach unten."},
+    {"german": "geradeaus", "english": "straight ahead / straight / go straight", "example": "Gehen Sie geradeaus."},
+    {"german": "zurück", "english": "back / backward / backwards / back up", "example": "Geh ein Stück zurück."},
+    {"german": "oben", "english": "up / above / upstairs / on top", "example": "Die Treppe geht nach oben."},
+    {"german": "unten", "english": "below / under / down / downstairs / underneath", "example": "Der Ausgang ist nach unten."},
     {"german": "hier", "english": "here", "example": "Ich bin hier."},
-    {"german": "dort", "english": "there", "example": "Das Café ist dort."},
+    {"german": "dort", "english": "there / over there", "example": "Das Café ist dort."},
     {"german": "in der Nähe", "english": "nearby", "example": "Das Restaurant ist in der Nähe."},
-    {"german": "weit", "english": "far", "example": "Der Bahnhof ist weit weg."},
-    {"german": "in die Richtung", "english": "in the direction", "example": "Gehen Sie in die Richtung vom Park."},
+    {"german": "weit", "english": "far / distant / away", "example": "Der Bahnhof ist weit weg."},
+    {"german": "in die Richtung", "english": "in the direction / towards / toward", "example": "Gehen Sie in die Richtung vom Park."},
     {"german": "zum Bahnhof", "english": "to the train station", "example": "Ich gehe zum Bahnhof."},
     {"german": "zur Bushaltestelle", "english": "to the bus stop", "example": "Wir gehen zur Bushaltestelle."},
-    {"german": "bis zur Kreuzung", "english": "until the intersection", "example": "Gehen Sie bis zur Kreuzung."},
-    {"german": "an der Ecke", "english": "at the corner", "example": "Das Geschäft ist an der Ecke."},
-    {"german": "über die Straße", "english": "across the street", "example": "Gehen Sie über die Straße."}
+    {"german": "bis zur Kreuzung", "english": "until the intersection / up to the intersection", "example": "Gehen Sie bis zur Kreuzung."},
+    {"german": "an der Ecke", "english": "at the corner / on the corner", "example": "Das Geschäft ist an der Ecke."},
+    {"german": "über die Straße", "english": "across the street / cross the street", "example": "Gehen Sie über die Straße."}
 ]

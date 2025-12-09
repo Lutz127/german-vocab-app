@@ -1,13 +1,13 @@
 [
-    {"german": "viel", "english": "much / a lot / a lot of", "example": "Ich habe viel Arbeit."},
-    {"german": "viele", "english": "many", "example": "Viele Leute sind hier."},
-    {"german": "wenig", "english": "little / few", "example": "Ich habe wenig Zeit."},
+    {"german": "viel", "english": "much / a lot / a lot of / plenty", "example": "Ich habe viel Arbeit."},
+    {"german": "viele", "english": "many / a lot of", "example": "Viele Leute sind hier."},
+    {"german": "wenig", "english": "little / few / hardly any", "example": "Ich habe wenig Zeit."},
     {"german": "mehr", "english": "more", "example": "Ich möchte mehr Wasser."},
-    {"german": "weniger", "english": "less / fewer", "example": "Ich brauche weniger Zucker."},
-    {"german": "genug", "english": "enough", "example": "Das ist genug."},
-    {"german": "mehrere", "english": "several", "example": "Mehrere Personen warten."},
+    {"german": "weniger", "english": "less / fewer / lower", "example": "Ich brauche weniger Zucker."},
+    {"german": "genug", "english": "enough / sufficient", "example": "Das ist genug."},
+    {"german": "mehrere", "english": "several / various", "example": "Mehrere Personen warten."},
     {"german": "ein paar", "english": "a few / a couple", "example": "Ich habe ein paar Fragen."},
-    {"german": "manche", "english": "some", "example": "Manche Menschen mögen Kaffee."},
-    {"german": "alles", "english": "everything", "example": "Alles ist gut."},
+    {"german": "manche", "english": "some / certain / some of", "example": "Manche Menschen mögen Kaffee."},
+    {"german": "alles", "english": "everything / all of it", "example": "Alles ist gut."},
     {"german": "nichts", "english": "nothing", "example": "Ich sehe nichts."}
 ]

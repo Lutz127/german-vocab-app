@@ -1,14 +1,14 @@
 [
-    {"german": "ja", "english": "yes", "example": "Ja, das stimmt."},
-    {"german": "nein", "english": "no", "example": "Nein, danke."},
-    {"german": "aber", "english": "but / however", "example": "Das ist aber schön!"},
-    {"german": "oder", "english": "or", "example": "Möchtest du Tee oder Kaffee?"},
+    {"german": "ja", "english": "yes / yeah / yep", "example": "Ja, das stimmt."},
+    {"german": "nein", "english": "no / nope", "example": "Nein, danke."},
+    {"german": "aber", "english": "but / however / yet / still", "example": "Das ist aber schön!"},
+    {"german": "oder", "english": "or / otherwise", "example": "Möchtest du Tee oder Kaffee?"},
     {"german": "und", "english": "and", "example": "Ich kaufe Brot und Milch."},
-    {"german": "vielleicht", "english": "maybe", "example": "Vielleicht komme ich später."},
+    {"german": "vielleicht", "english": "maybe / perhaps / possibly", "example": "Vielleicht komme ich später."},
     {"german": "bitte", "english": "please", "example": "Bitte helfen Sie mir."},
-    {"german": "danke", "english": "thanks / thank you", "example": "Danke für alles."},
+    {"german": "danke", "english": "thanks / thank you / thanks a lot", "example": "Danke für alles."},
     {"german": "gerne / gern", "english": "gladly / with pleasure", "example": "Gerne geschehen."},
-    {"german": "schon", "english": "already", "example": "Ich bin schon fertig."},
-    {"german": "nur", "english": "only", "example": "Ich habe nur einen Euro."},
-    {"german": "auch", "english": "also / too", "example": "Ich komme auch."}
+    {"german": "schon", "english": "already / by now", "example": "Ich bin schon fertig."},
+    {"german": "nur", "english": "only / just", "example": "Ich habe nur einen Euro."},
+    {"german": "auch", "english": "also / too / as well", "example": "Ich komme auch."}
 ]

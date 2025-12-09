@@ -2,13 +2,13 @@
     {"german": "die Sonne", "plural": "die Sonnen", "english": "sun", "example": "Die Sonne scheint."},
     {"german": "sonnig", "english": "sunny", "example": "Heute ist es sonnig."},
     {"german": "der Regen", "plural": "die Regen", "english": "rain", "example": "Es gibt viel Regen heute."},
-    {"german": "regnerisch", "english": "rainy", "example": "Das Wetter ist regnerisch."},
+    {"german": "regnerisch", "english": "rainy / wet", "example": "Das Wetter ist regnerisch."},
     {"german": "der Schnee", "plural": "die Schnee", "english": "snow", "example": "Es liegt viel Schnee."},
-    {"german": "schneit", "english": "snowing", "example": "Es schneit draußen."},
+    {"german": "schneit", "english": "snowing / to snow", "example": "Es schneit draußen."},
     {"german": "der Wind", "plural": "die Winde", "english": "wind", "example": "Der Wind ist stark."},
     {"german": "windig", "english": "windy", "example": "Heute ist es sehr windig."},
     {"german": "die Wolke", "plural": "die Wolken", "english": "cloud", "example": "Viele Wolken am Himmel."},
-    {"german": "wolkig / bewölkt", "english": "cloudy", "example": "Der Himmel ist bewölkt."},
+    {"german": "wolkig / bewölkt", "english": "cloudy / overcast", "example": "Der Himmel ist bewölkt."},
     {"german": "der Sturm", "plural": "die Stürme", "english": "storm", "example": "Ein starker Sturm kommt."},
     {"german": "das Gewitter", "plural": "die Gewitter", "english": "thunderstorm", "example": "Heute Abend gibt es ein Gewitter."},
     {"german": "der Blitz", "plural": "die Blitze", "english": "lightning", "example": "Ein Blitz schlägt ein."},
@@ -25,5 +25,5 @@
     {"german": "die Jahreszeit", "plural": "die Jahreszeiten", "english": "season", "example": "Der Sommer ist meine Lieblingsjahreszeit."},
     {"german": "das Wetter", "plural": "die Wetter", "english": "weather", "example": "Das Wetter ist schön."},
     {"german": "der Regenbogen", "plural": "die Regenbögen", "english": "rainbow", "example": "Ich sehe einen Regenbogen!"},
-    {"german": "der Frost", "plural": "die Fröste", "english": "frost", "example": "Es gibt heute Nacht Frost."}
+    {"german": "der Frost", "plural": "die Fröste", "english": "frost / freeze", "example": "Es gibt heute Nacht Frost."}
 ]

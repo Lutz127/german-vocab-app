@@ -13,7 +13,7 @@
     {"german": "das Gewitter", "plural": "die Gewitter", "english": "thunderstorm", "example": "Heute Abend gibt es ein Gewitter."},
     {"german": "der Blitz", "plural": "die Blitze", "english": "lightning", "example": "Ein Blitz schlägt ein."},
     {"german": "der Nebel", "plural": "die Nebel", "english": "fog", "example": "Es gibt viel Nebel."},
-    {"german": "neblig", "english": "foggy", "example": "Es ist heute sehr neblig."},
+    {"german": "neblig / nebelig", "english": "foggy", "example": "Es ist heute sehr neblig."},
     {"german": "heiß", "english": "hot", "example": "Es ist draußen sehr heiß."},
     {"german": "warm", "english": "warm", "example": "Es bleibt warm heute."},
     {"german": "kühl", "english": "cool", "example": "Es ist ein bisschen kühl."},
